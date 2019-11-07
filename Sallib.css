@@ -1,0 +1,57 @@
+/* BODY */
+body
+{
+	background-color: #4B4B4B;
+	color: white;
+}
+
+
+
+/* TITRE */
+.titre
+{
+	font-size: 40px;
+	text-align: center;
+	font-family: Trebuchet MS;
+}
+
+
+
+/* MENU */
+#conteneur
+{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 70px;
+}
+
+#element
+{
+	border: 1px black solid;
+	flex:1;
+}
+
+#strong
+{
+	text-align: center;
+	font-family: Trebuchet MS;
+}
+
+
+
+/* Carte de l'école */
+.epi
+{
+	border: 2px black solid;
+	margin: 5px;
+	height: 40px;
+	text-align:center;
+}
+
+.rue
+{
+	border: 2px black solid;
+	text-align:center;
+}
+}
