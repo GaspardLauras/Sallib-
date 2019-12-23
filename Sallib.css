@@ -28,7 +28,7 @@ body
 
 #element
 {
-	border: 1px black solid;
+	border: 2px black solid;
 	flex:1;
 }
 
@@ -38,6 +38,13 @@ body
 	font-family: Trebuchet MS;
 }
 
+
+
+/* Liste des salles libres */
+.listeSallesLibres
+{
+	border: 2px black solid
+}
 
 
 /* Carte de l'école */
