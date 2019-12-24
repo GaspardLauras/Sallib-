@@ -40,5 +40,6 @@ Pour les requêtes http d'ADE
 -
 
 * Quels packages faut-il importer?
+* Bordel de merde c'est quoi un Maven et comment ca marche (J'ai compris que ca nous éviterais de devoir télécharger les bibliothèques mais j'ai pas compris comment ca marche cette merde...). Donc __Lucos__ alède.
 
 
