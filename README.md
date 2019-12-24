@@ -22,7 +22,7 @@ Pour commiter votre travail
 Pour vous synchroniser avec le git
 -
 
-* git fetch
+* git pull
 
 ---
 
