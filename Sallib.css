@@ -5,68 +5,103 @@ body
 	color: white;
 }
 
-
-
-/* TITRE */
-.titre
+h1
 {
-	font-size: 40px;
+	font-size: 80px;
+	font-weight: bold;
 	text-align: center;
-	font-family: Trebuchet MS;
 }
+
+
 
 
 
 /* MENU */
-#conteneur
+.menu
 {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	height: 70px;
 }
 
-#element
+.menu_elements
 {
-	border: 2px black solid;
-	flex:1;
+	border: 2px solid black;
+	text-align: center;
+	width: 300px;
 }
 
-#strong
+.menu_elements:hover
+{
+	border: 2px solid black;
+	text-align: center;
+	width: 500px;
+}
+
+
+
+
+
+/* SALLES LIBRES */
+.salles_libres_containeur
+{
+	border: 2px solid black;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.titre_salles_libres
 {
 	text-align: center;
-	font-family: Trebuchet MS;
 }
 
 
 
-/* Liste des salles libres */
-.listeSallesLibres
-{
-	border: 2px black solid
-}
 
 
-/* Carte de l'école */
-.div_epi
+/* CARTE */
+.carte_esiee
 {
-	display: flex;
-	flex-direction : row;
-}
-
-.epi
-{
-	border: 2px black solid;
-	margin: 5px;
-	height: 400px;
-	text-align:center;
-	flex: 1;
 }
 
 .rue
 {
-	border: 2px black solid;
-	height: 100px;
-	text-align:center;
+	text-align: center;
+	border: 2px solid black;
+	margin-bottom: 10px;
 }
+
+.epis_containeur
+{
+	display: flex;
+	justify-content: space-around;
+}
+
+.epi
+{
+	width: 250px;
+	border: 2px solid black;
+	text-align: center;
+}
+
+.epi:hover
+{
+	width: 500px;
+	height: 500px;
+	border: 2px solid black;
+	text-align: center;
+}
+
+
+
+
+
+
+
+/* FOOTER */
+footer
+{
+	margin-top: 50px;
+	border-top: 2px solid grey;
+	text-align: center;
 }
