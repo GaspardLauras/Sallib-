@@ -12,7 +12,15 @@ h1
 	text-align: center;
 }
 
-
+h2
+{
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 50px;
+	border-bottom: 2px solid grey;
+	padding-bottom: 10px;
+}
 
 
 
@@ -45,14 +53,25 @@ h1
 /* SALLES LIBRES */
 .salles_libres_containeur
 {
-	border: 2px solid black;
 	margin-top: 20px;
 	margin-bottom: 40px;
+	display: flex;
+	justify-content: space-around;
 }
 
-.titre_salles_libres
+.salles_libres
 {
+	border: 2px solid black;	
 	text-align: center;
+	width: 400px;
+}
+
+.salles_libres:hover
+{
+	border: 2px solid black;	
+	text-align: center;
+	width: 500px;
+	height: 500px;
 }
 
 
@@ -69,6 +88,11 @@ h1
 	text-align: center;
 	border: 2px solid black;
 	margin-bottom: 10px;
+}
+
+.rue:hover
+{
+	height:400px;
 }
 
 .epis_containeur
