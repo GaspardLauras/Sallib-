@@ -22,6 +22,7 @@ Pour commiter votre travail
 Pour vous synchroniser avec le git
 -
 
+* git checkout -f (SEULEMENT SI VOUS AVEZ FAIT DES MODIFS QUE VOUS NE VOULEZ PAS GARDER)
 * git pull
 
 ---
