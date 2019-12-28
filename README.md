@@ -1,4 +1,5 @@
-Pour vous associer au projet allez dans le répertoire courant du projet sur votre ordi
+Pour vous associer au projet allez dans le répertoire courant du projet sur votre ordi 
+(ATTENTION CE N'EST PAS LE REPERTOIRE GIT)
 -
 
 * git init
