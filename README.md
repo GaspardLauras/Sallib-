@@ -1,7 +1,3 @@
-Luc t'es un génie
-==
-
-
 Pour vous associer au projet allez dans le répertoire courant du projet sur votre ordi
 -
 
