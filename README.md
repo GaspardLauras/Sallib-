@@ -4,6 +4,7 @@ Pour vous associer au projet allez dans le répertoire courant du projet sur vot
 
 * git init
 * git remote add origin https://github.com/GaspardLauras/Sallib-.git
+* git pull https://github.com/GaspardLauras/Sallib-.git master
 
 ---
 
