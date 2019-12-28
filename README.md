@@ -1,4 +1,4 @@
-Luc tu pues
+Luc t'es un génie
 ==
 
 
