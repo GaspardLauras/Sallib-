@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+Luc t'es un génie
+==
+
+
+>>>>>>> a8441136875040d4b064905d790f5f5d705db2ad
 Pour vous associer au projet allez dans le répertoire courant du projet sur votre ordi
 -
 
