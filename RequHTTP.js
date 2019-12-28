@@ -1,3 +1,1 @@
-var xhr = new XMLHttpRequest();
-
-xhr.open('GET', 'https;//www.google.com');
+$(div.salles_libres).append('Text écrit en JS');
