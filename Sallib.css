@@ -44,6 +44,7 @@ h2
 	border: 2px solid black;
 	text-align: center;
 	width: 500px;
+	cursor: pointer;
 }
 
 
@@ -66,14 +67,11 @@ h2
 	width: 400px;
 }
 
-/*
+
 .salles_libres:hover
 {
-	border: 2px solid black;	
-	text-align: center;
-	width: 500px;
-	height: 500px;
-}*/
+	cursor: pointer;
+}
 
 
 
@@ -93,7 +91,7 @@ h2
 
 .rue:hover
 {
-	height:400px;
+	cursor: pointer;
 }
 
 .epis_containeur
@@ -111,10 +109,7 @@ h2
 
 .epi:hover
 {
-	width: 500px;
-	height: 500px;
-	border: 2px solid black;
-	text-align: center;
+	cursor: pointer; 
 }
 
 
