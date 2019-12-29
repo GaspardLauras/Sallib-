@@ -1,1 +1,1 @@
-$(div.salles_libres).append('Text écrit en JS');
+$('div.salles_libres p').append("<p>Text JS</p>");
