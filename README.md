@@ -8,6 +8,14 @@ Pour vous associer au projet allez dans le répertoire courant du projet sur vot
 
 ---
 
+Equipes
+-
+
+* __Requêtes/ Logs :__ Gaspard, Lilian, Luc __[branch 'http']__
+* __Site :__ Gaspard, Jérôme, Thibaud, Thibault __[branch 'website']__
+
+---
+
 Pour commiter votre travail
 -
 
@@ -34,32 +42,6 @@ Quelques lien utiles
 -
 
 * https://www.w3schools.com/css/css_boxmodel.asp
+* https://github.com/wallforfry/esiee-api/tree/master/ade
 
 ---
-
-PROBLEMES RENCONTRES
-==
-
-Pour les requêtes http d'ADE
--
-
-* Quels packages faut-il importer?
-* Bordel de merde c'est quoi un Maven et comment ca marche (J'ai compris que ca nous éviterais de devoir télécharger les bibliothèques mais j'ai pas compris comment ca marche cette merde...). Donc __Lucos__ alède.
-* Possibilité de le faire avec un JS : https://openclassrooms.com/fr/courses/1916641-dynamisez-vos-sites-web-avec-javascript/1921308-xmlhttprequest 
-
-Pour le code HTML/CSS/JavaScript
--
-
-* Comment faire en sorte que les boites sur lesquelles ont ne va pas ne soit pas agrandies?
-* Commment rendre le site __beau__?
-
-
-
-
-
-
-
-
-
----
-Test 
