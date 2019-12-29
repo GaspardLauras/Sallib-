@@ -11,8 +11,8 @@ Pour vous associer au projet allez dans le répertoire courant du projet sur vot
 Equipes
 -
 
-* Requêtes/ Logs : Gaspard, Lilian, Luc
-* Site : Gaspard, Jérôme, Thibaud, Thibault
+* __Requêtes/ Logs :__ Gaspard, Lilian, Luc
+* __Site :__ Gaspard, Jérôme, Thibaud, Thibault
 
 ---
 
@@ -45,13 +45,3 @@ Quelques lien utiles
 * https://github.com/wallforfry/esiee-api/tree/master/ade
 
 ---
-
-
-
-
-
-
-
-
----
-Test 
