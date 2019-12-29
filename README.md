@@ -11,8 +11,8 @@ Pour vous associer au projet allez dans le répertoire courant du projet sur vot
 Equipes
 -
 
-* __Requêtes/ Logs :__ Gaspard, Lilian, Luc
-* __Site :__ Gaspard, Jérôme, Thibaud, Thibault
+* __Requêtes/ Logs :__ Gaspard, Lilian, Luc __[branch 'http']__
+* __Site :__ Gaspard, Jérôme, Thibaud, Thibault __[branch 'website']__
 
 ---
 
