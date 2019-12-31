@@ -6,8 +6,11 @@
 
 var arraySalles = new Array(1,2,3,4,5,6);
 
-for(var i =0; i< arraySalles.length; i++){
-	$('div.salles_libres p').append("<p class=\"salles_libres_p\">Salle numéro "+arraySalles[i]+"</p>");
+for(var i = 0; i< 6; i++){
+	$('div.salles_libres p').append("<p class= 'salles_libres_p'>Salle numéro "
+		+arraySalles[i]+
+		"</p>");
+	console.log(i);
 }
 
 $('p.salles_libres_p').hide();
