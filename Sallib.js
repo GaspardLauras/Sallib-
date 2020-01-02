@@ -6,14 +6,26 @@
 
 var arraySalles = new Array(1,2,3,4,5,6);
 
-for(var i =0; i< arraySalles.length; i++){
-	$('div.salles_libres p').append("<p class=\"salles_libres_p\">Salle numéro "+arraySalles[i]+"</p>");
+for(var i = 0; i < 6; i++){
+  $('div.salles_libres').append("<div class='salles_libres_div'>Salles numéro "+
+    arraySalles[i]+
+    "</div> \n");
 }
 
-$('p.salles_libres_p').hide();
-$('div.salles_libres p').click(function(){
-  $('p.salles_libres_p').toggle(300);
-});
+$('div.salles_libres_div').css('border','2px solid black');
+$('div.salles_libres_div').css('height','30px');
+// $('div.salles_libres_div').css('width','200px');
+
+// $('div.salles_libres_div').css('vertical-align','middle');
+
+// $('div.salles_libres_div').css('margin-bottom','10px');
+
+
+// $('div.salles_libres_div').hide();
+
+// $('div.salles_libres p').click(function(){
+//   $('div.salles_libres_div').toggle(300);
+// });
 
 
 
