@@ -6,19 +6,11 @@
 
 var arraySalles = new Array(1,2,3,4,5,6);
 
-<<<<<<< HEAD
 for(var i = 0; i < 6; i++){
   $('div.salles_libres').append("<div class='salles_libres_div'>Salles numéro "+
     arraySalles[i]+
     "</div> \n");
-=======
-for(var i = 0; i< 6; i++){
-	$('div.salles_libres p').append("<p class= 'salles_libres_p'>Salle numéro "
-		+arraySalles[i]+
-		"</p>");
-	console.log(i);
->>>>>>> 007cc64a99c5be6a729227a2e1a6e8c45569287d
-}
+
 
 $('div.salles_libres_div').css('border','2px solid black');
 $('div.salles_libres_div').css('height','30px');
