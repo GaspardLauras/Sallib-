@@ -10,7 +10,7 @@ for(var i = 0; i < 6; i++){
   $('div.salles_libres').append("<div class='salles_libres_div'>Salles numéro "+
     arraySalles[i]+
     "</div> \n");
-
+}
 
 $('div.salles_libres_div').css('border','2px solid black');
 $('div.salles_libres_div').css('height','30px');
