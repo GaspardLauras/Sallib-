@@ -1,3 +1,11 @@
+Equipes
+-
+
+* __Requêtes/ Logs :__ Gaspard, Lilian, Luc
+* __Site :__ Gaspard, Jérôme, Thibaud, Thibault
+
+---
+
 Pour vous associer au projet allez dans le répertoire courant du projet sur votre ordi 
 (ATTENTION CE N'EST PAS LE REPERTOIRE GIT)
 -
@@ -8,13 +16,7 @@ Pour vous associer au projet allez dans le répertoire courant du projet sur vot
 * "git remote add origin https://github.com/GaspardLauras/Sallib-.git"
 * "git pull https://github.com/GaspardLauras/Sallib-.git master"
 
----
-
-Equipes
--
-
-* __Requêtes/ Logs :__ Gaspard, Lilian, Luc
-* __Site :__ Gaspard, Jérôme, Thibaud, Thibault
+Maintenant vous avez un répertoire sur votre pc relié au git
 
 ---
 
