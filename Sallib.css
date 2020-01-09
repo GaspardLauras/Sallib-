@@ -1,8 +1,8 @@
 html
 {
 	font-family: Trebuchet MS ;
-	background-color: #4B4B4B;
-	color: white;
+	background-color: black;
+	color: whitesmoke;
 }
 
 
@@ -24,7 +24,7 @@ h2
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 50px;
-	border-bottom: 2px solid grey;
+	border-bottom: 2px solid rgb(60 , 60 , 60);
 	padding-bottom: 10px;
 }
 
@@ -87,15 +87,24 @@ div.salles_libres p
 
 
 /* CARTE */
-.carte_esiee
-{
-}
+.carte_esiee{}
 
 .rue
 {
 	text-align: center;
 	border: 2px solid black;
 	margin-bottom: 10px;
+}
+
+.rue p
+{
+	font-size: 22px;
+}
+
+.salles_rue_container
+{
+	display: flex;
+	justify-content: space-around;
 }
 
 .rue:hover
@@ -115,6 +124,10 @@ div.salles_libres p
 	border: 2px solid black;
 	text-align: center;
 }
+.epi p
+{
+	font-size: 22px;
+}
 
 .epi:hover
 {
@@ -127,7 +140,7 @@ div.salles_libres p
 footer
 {
 	margin-top: 50px;
-	border-top: 2px solid grey;
+	border-top: 2px solid rgb(60 , 60 , 60);
 	text-align: center;
 }
 
