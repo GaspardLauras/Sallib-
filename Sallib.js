@@ -31,7 +31,15 @@ $('div.salles_libres').click(function(){
 
 //_________________________________________
 //Carte
+var arraySallesEpi1 = new Array(1051,1052,1053,1054,1055,1056);
 
+for(var i = 0; i < arraySallesEpi1.length; i++){ //ajout de toutes les "salles" dans la balise '<div class="salles_libres"/>'
+  $('div#epi_1').append("<div class='salles_carte_epi1'>"+
+  	arraySallesEpi1[i]
+  	+"</div>");
+}
+
+<<<<<<< HEAD
 //-------
 //EPI1
 var arraySallesEpi1 = new Array(1051,1052,1053,1054,1055,1056);
@@ -42,6 +50,8 @@ for(var i = 0; i < arraySallesEpi1.length; i++){ //ajout de toutes les "salles" 
   	+"</div>");
 }
 
+=======
+>>>>>>> 493494071d208806afeb8b8dd8b8cf3de4e5b7c9
 $('div.salles_carte_epi1').hide();
 $('div#epi_1').click(function(){
   $('div.salles_carte_epi1').toggle(300);//Permet de cacher et d'afficher les salles libres
@@ -54,6 +64,7 @@ $('div.salles_carte_epi1').css('margin','0 auto');
 $('div.salles_carte_epi1').css('border','2px solid black');
 $('div.salles_carte_epi1').css('margin-bottom','10px');
 
+<<<<<<< HEAD
 //-------
 //EPI2
 var arraySallesEpi2 = new Array(2051,2052,2053,2054,2055,2056);
@@ -65,6 +76,12 @@ for(var i = 0; i < arraySallesEpi1.length; i++){ //ajout de toutes les "salles" 
 }
 
 $('div.salles_carte_epi2').hide();
+=======
+
+
+//______________________________
+//Cette partie sera à virer et à remplacer par la méthode ci-dessus
+>>>>>>> 493494071d208806afeb8b8dd8b8cf3de4e5b7c9
 $('div#epi_2').click(function(){
   $('div.salles_carte_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
   //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms

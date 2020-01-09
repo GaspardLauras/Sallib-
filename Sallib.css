@@ -1,9 +1,15 @@
-/* BODY */
-body
+html
 {
+	font-family: Trebuchet MS ;
 	background-color: #4B4B4B;
 	color: white;
 }
+
+
+
+/* BODY */
+body
+{}
 
 h1
 {
@@ -37,6 +43,7 @@ h2
 	border: 2px solid black;
 	text-align: center;
 	width: 300px;
+	margin-bottom: 10px;
 }
 
 .menu_elements:hover
@@ -46,10 +53,6 @@ h2
 	width: 500px;
 	cursor: pointer;
 }
-
-
-
-
 
 
 
@@ -67,6 +70,12 @@ h2
 	border: 2px solid black;	
 	text-align: center;
 	width: 400px;
+	vertical-align: center;
+}
+
+div.salles_libres p
+{
+	font-size: 30px;
 }
 
 
@@ -74,10 +83,6 @@ h2
 {
 	cursor: pointer;
 }
-
-
-
-
 
 
 
@@ -118,14 +123,15 @@ h2
 
 
 
-
-
-
-
 /* FOOTER */
 footer
 {
 	margin-top: 50px;
 	border-top: 2px solid grey;
 	text-align: center;
+}
+
+footer strong
+{
+	font-size: 20px;
 }
