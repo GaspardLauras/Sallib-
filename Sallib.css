@@ -24,7 +24,7 @@ h2
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 50px;
-	border-bottom: 2px solid rgb(60 , 60 , 60);
+	border-bottom: 2px solid grey;
 	padding-bottom: 10px;
 }
 
@@ -40,7 +40,6 @@ h2
 
 .menu_elements
 {
-	border: 2px solid black;
 	text-align: center;
 	width: 300px;
 	margin-bottom: 10px;
@@ -48,7 +47,6 @@ h2
 
 .menu_elements:hover
 {
-	border: 2px solid black;
 	text-align: center;
 	width: 500px;
 	cursor: pointer;
@@ -66,8 +64,7 @@ h2
 }
 
 .salles_libres
-{
-	border: 2px solid black;	
+{	
 	text-align: center;
 	width: 400px;
 	vertical-align: center;
@@ -92,7 +89,6 @@ div.salles_libres p
 .rue
 {
 	text-align: center;
-	border: 2px solid black;
 	margin-bottom: 10px;
 }
 
@@ -101,7 +97,14 @@ div.salles_libres p
 	font-size: 22px;
 }
 
-.salles_rue_container
+.salles_rue
+{
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+}
+
+.salles_rue_amphis
 {
 	display: flex;
 	justify-content: space-around;
@@ -115,13 +118,12 @@ div.salles_libres p
 .epis_containeur
 {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 }
 
 .epi
 {
 	width: 250px;
-	border: 2px solid black;
 	text-align: center;
 }
 .epi p
@@ -140,7 +142,7 @@ div.salles_libres p
 footer
 {
 	margin-top: 50px;
-	border-top: 2px solid rgb(60 , 60 , 60);
+	border-top: 2px solid grey;
 	text-align: center;
 }
 
