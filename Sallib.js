@@ -1,6 +1,6 @@
 function ajoutSalles(arraySalles, classDivCree, attrDivCible){
   for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
-    $('div'+attrDivCible).append('<div class=''+ classDivCree +''>'+
+    $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
       arraySalles[i]+
       '</div>');
   }
