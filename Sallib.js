@@ -1,8 +1,8 @@
 function ajoutSalles(arraySalles, classDivCree, attrDivCible){
-  for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les "salles" dans la balise '<div class="salles_libres"/>'
-    $('div'+attrDivCible).append("<div class='"+ classDivCree +"'>"+
+  for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
+    $('div'+attrDivCible).append('<div class=''+ classDivCree +''>'+
       arraySalles[i]+
-      "</div>");
+      '</div>');
   }
 
   //Mise en page des div de salles libres
@@ -27,16 +27,16 @@ function ADEconnect (){
 	var sessionId;
 	fetch(loggin)
 	.then(response=>response.text())
-	.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+	.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
     .then(data=>{
 		let parser = new DOMParser();
-        let xmlResponse = parser.parseFromString(data, "application/xml");
+        let xmlResponse = parser.parseFromString(data, 'application/xml');
 		// Récupération de sessionId :
 		let session = xmlResponse.getElementsByTagName('session');
 		sessionId = session[0].getAttribute('id');
 		console.log(sessionId);
 	});		
-	console.log("Connexion à ADE");
+	console.log('Connexion à ADE');
 
 //Menu
 
