@@ -155,4 +155,4 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 
 //Test de connexion à ADE
-$().click(ADEconnect());
+$(footer).click(ADEconnect());
