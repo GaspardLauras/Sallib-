@@ -132,8 +132,8 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 //Test de connexion à ADE
 function ADEconnect (){
-	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
-	console.log(getDate(currentdate)+getTime(currentdate));
+/*	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
+	console.log(getDate(currentdate)+getTime(currentdate));*/
 	const baseURL = 'https://planif.esiee.fr/jsp/webapi';
 	const ip = 'planif.esiee.fr';
 	const port ='8443';
