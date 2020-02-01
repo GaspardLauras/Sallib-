@@ -12,31 +12,7 @@ function ajoutSalles(arraySalles, classDivCree, attrDivCible){
   $('div.'+classDivCree).css('margin-bottom','10px');
 }
 
-function ADEconnect (){
-	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
-	console.log(getDate(currentdate)+getTime(currentdate));
-	const baseURL = 'https://planif.esiee.fr/jsp/webapi';
-	const ip = “planif.esiee.fr”;
-	const port =”8443”;
-	const logger = “?function=connect&login=lecteur1&password=”;
 
-	// Connexion à ADE (connect) :
-	const loggin = “https://”+ ip +”:”+ port +”/jsp/webapi”+logger;
-
-	// Récupérer sessionId :
-	var sessionId;
-	fetch(loggin)
-	.then(response=>response.text())
-	.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
-    .then(data=>{
-		let parser = new DOMParser();
-        let xmlResponse = parser.parseFromString(data, 'application/xml');
-		// Récupération de sessionId :
-		let session = xmlResponse.getElementsByTagName('session');
-		sessionId = session[0].getAttribute('id');
-		console.log(sessionId);
-	});		
-	console.log('Connexion à ADE');
 
 //Menu
 
@@ -155,4 +131,31 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 
 //Test de connexion à ADE
-$('footer').click(ADEconnect());
+function ADEconnect (){
+	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
+	console.log(getDate(currentdate)+getTime(currentdate));
+	const baseURL = 'https://planif.esiee.fr/jsp/webapi';
+	const ip = 'planif.esiee.fr';
+	const port ='8443';
+	const logger = '?function=connect&login=lecteur1&password=';
+
+	// Connexion à ADE (connect) :
+	const loggin = 'https://'+ ip +':'+ port +'/jsp/webapi'+logger;
+
+	// Récupérer sessionId :
+	var sessionId;
+	fetch(loggin)
+	.then(response=>response.text())
+	.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
+    .then(data=>{
+		let parser = new DOMParser();
+        let xmlResponse = parser.parseFromString(data, 'application/xml');
+		// Récupération de sessionId :
+		let session = xmlResponse.getElementsByTagName('session');
+		sessionId = session[0].getAttribute('id');
+		console.log(sessionId);
+	});		
+	console.log('Connexion à ADE');
+}
+
+ADEconnect();
