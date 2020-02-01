@@ -1,1 +1,0 @@
-$('div.salles_libres p').append("<p>Text JS</p>");
