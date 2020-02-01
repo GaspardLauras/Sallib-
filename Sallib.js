@@ -146,7 +146,7 @@ function ADEconnect (){
 	var sessionId;
 	fetch(loggin)
 	.then(response=>response.text())
-	.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
+	//.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
     .then(data=>{
 		let parser = new DOMParser();
         let xmlResponse = parser.parseFromString(data, 'application/xml');
