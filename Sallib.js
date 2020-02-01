@@ -15,7 +15,7 @@ function ajoutSalles(arraySalles, classDivCree, attrDivCible){
 function ADEconnect (){
 	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
 	console.log(getDate(currentdate)+getTime(currentdate));
-	const baseURL = “https://planif.esiee.fr/jsp/webapi”;
+	const baseURL = “https:\//planif.esiee.fr/jsp/webapi”;
 	const ip = “planif.esiee.fr”;
 	const port =”8443”;
 	const logger = “?function=connect&login=lecteur1&password=”;
