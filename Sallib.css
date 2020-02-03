@@ -53,6 +53,7 @@ h2
 	margin-top: 20px;
 	margin-bottom: 40px;
 	display: flex;
+	border: whitesmoke solid 2px;
 	justify-content: space-around;
 }
 
