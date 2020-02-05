@@ -145,18 +145,17 @@ function ADEconnect (){
 
 	// Récupérer sessionId :
 	var sessionId;
-	var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    	targetUrl = 'https://planif.esiee.fr:8443/jsp/webapi?function=connect&login=lecteur1&password='
-	fetch(proxyUrl + targetUrl)
+	var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+	fetch(proxyUrl + loggin)
 	  .then(data => {
-    	let parser = new DOMParser();
-	/*let xmlResponse = parser.parseFromString(data, 'application/xml');
-	// Récupération de sessionId :
-	let session = xmlResponse.getElementsByTagName('session');
-	sessionId = session[0].getAttribute('id');
-	console.log(sessionId);
-	*/
-	console.log(data);
+    		let parser = new DOMParser();	
+       		let xmlResponse = parser.parseFromString(data, "application/xml");
+		console.log(xmlResponse);
+		// Récupération de sessionId :
+		let session = xmlResponse.getElementsByTagName('session');
+		console.log(session);
+		//sessionId = session[0].getAttribute('id');
+		//console.log(sessionId);
 	  })
 	  .catch(e => {
 	    console.log(e);
