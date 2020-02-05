@@ -163,10 +163,10 @@ function ADEconnect (){
 	  });	
 	console.log('Connexion à ADE');
 	
-	
+	/*
 	const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+sessionId +'&function=disconnect';
 	fetch(proxyUrl + disconnect);
-	console.log("Déconnexion de session ADE");
+	console.log("Déconnexion de session ADE");*/
 }
 
 ADEconnect();
