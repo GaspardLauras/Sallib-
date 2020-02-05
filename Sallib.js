@@ -150,12 +150,14 @@ function ADEconnect (){
 	  .then(data => {
     		let parser = new DOMParser();	
        		let xmlResponse = parser.parseFromString(data, "application/xml");
-		console.log(xmlResponse);
+		console.log("Fichier XML importé :"); 
+		console.log(xmlResponse); 
 		// Récupération de sessionId :
 		let session = xmlResponse.getElementsByTagName('session');
 		console.log(session);
-		//sessionId = session[0].getAttribute('id');
-		//console.log(sessionId);
+		let session = xml.getElementsByTagName('session');
+		sessionId = session[0].getAttribute('id');
+		console.log(sessionId);
 	  })
 	  .catch(e => {
 	    console.log(e);
