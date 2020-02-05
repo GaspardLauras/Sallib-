@@ -141,6 +141,7 @@ function ADEconnect (){
 
 	// Connexion à ADE (connect) :
 	const loggin = 'https://'+ ip +':'+ port +'/jsp/webapi'+logger;
+	console.log(loggin);
 
 	// Récupérer sessionId :
 	var sessionId;
