@@ -132,8 +132,8 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 //Test de connexion à ADE
 function ADEconnect (){
-/*	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
-	console.log(getDate(currentdate)+getTime(currentdate));*/
+	// var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
+	// console.log(getDate(currentdate)+getTime(currentdate));      
 	const baseURL = 'https://planif.esiee.fr/jsp/webapi';
 	const ip = 'planif.esiee.fr';
 	const port ='8443';
@@ -146,25 +146,30 @@ function ADEconnect (){
 	// Récupérer sessionId :
 	var sessionId;
 	var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-	fetch(proxyUrl + loggin)
-	  .then(data => {
-    		let parser = new DOMParser();	
-       		let xmlResponse = parser.parseFromString(data, "application/xml");
-		console.log("Fichier XML importé :"); 
-		console.log(xmlResponse); 
-		// Récupération de sessionId :
-		let session = xmlResponse.getElementsByTagName('session');
-		console.log(session);
-		let session = xml.getElementsByTagName('session');
-		sessionId = session[0].getAttribute('id');
-		console.log(sessionId);
-	  })
-	  .catch(e => {
-	    console.log(e);
-	    return e;
-	  });	
-	console.log('Connexion à ADE');
-	
+
+	document.addEventListener('DOMContentLoaded', ()=>{
+	    fetch(proxyUrl + loggin)
+	    .then(response=>response.text()) 
+	    .then(data => {
+		    let parser = new DOMParser();	
+		    let xmlResponse = parser.parseFromString(data, "application/xml");
+		    console.log("Fichier XML importé :"); 
+		    console.log(xmlResponse); 
+		    // Récupération de sessionId :
+		    let session = xmlResponse.getElementsByTagName('session');
+		    console.log("Session : ");
+		    console.log(session);
+		    sessionId = session[0].getAttribute('id');
+		    console.log("Session ID : ");
+		    console.log(sessionId);
+	    })
+	    .catch(e => {
+		console.log(e);
+		return e;
+	    });	
+	    console.log('Connexion à ADE');
+	})
+
 	const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+sessionId +'&function=disconnect';
 	fetch(proxyUrl + disconnect);
 	console.log("Déconnexion de session ADE");
