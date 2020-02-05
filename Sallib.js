@@ -149,11 +149,13 @@ function ADEconnect (){
 	fetch(proxyUrl + targetUrl)
 	  .then(data => {
     	let parser = new DOMParser();
-	let xmlResponse = parser.parseFromString(data, 'application/xml');
+	/*let xmlResponse = parser.parseFromString(data, 'application/xml');
 	// Récupération de sessionId :
 	let session = xmlResponse.getElementsByTagName('session');
 	sessionId = session[0].getAttribute('id');
 	console.log(sessionId);
+	*/
+	console.log(data);
 	  })
 	  .catch(e => {
 	    console.log(e);
@@ -163,7 +165,7 @@ function ADEconnect (){
 	
 	
 	const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+sessionId +'&function=disconnect';
-	fetch(disconnect);
+	fetch(proxyUrl + disconnect);
 	console.log("Déconnexion de session ADE");
 }
 
