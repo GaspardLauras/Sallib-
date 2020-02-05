@@ -144,18 +144,27 @@ function ADEconnect (){
 
 	// Récupérer sessionId :
 	var sessionId;
-	fetch(loggin)
-	.then(response=>response.text())
-	//.catch(() => console.log('Can’t access ' + url + ' response. Blocked by browser?'))
-    .then(data=>{
-		let parser = new DOMParser();
-        let xmlResponse = parser.parseFromString(data, 'application/xml');
-		// Récupération de sessionId :
-		let session = xmlResponse.getElementsByTagName('session');
-		sessionId = session[0].getAttribute('id');
-		console.log(sessionId);
-	});		
+	var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    	targetUrl = 'https://planif.esiee.fr:8443/jsp/webapi?function=connect&login=lecteur1&password='
+	fetch(proxyUrl + targetUrl)
+	  .then(data => {
+    	let parser = new DOMParser();
+	let xmlResponse = parser.parseFromString(data, 'application/xml');
+	// Récupération de sessionId :
+	let session = xmlResponse.getElementsByTagName('session');
+	sessionId = session[0].getAttribute('id');
+	console.log(sessionId);
+	  })
+	  .catch(e => {
+	    console.log(e);
+	    return e;
+	  });	
 	console.log('Connexion à ADE');
+	
+	
+	const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+sessionId +'&function=disconnect';
+	fetch(disconnect);
+	console.log("Déconnexion de session ADE");
 }
 
 ADEconnect();
