@@ -149,7 +149,7 @@ function ADEconnect (){
 	fetch(proxyUrl + loggin)
 	  .then(data => {
     		let parser = new DOMParser();	
-       		let xmlResponse = parser.parseFromString(data, "text/xml"); // puis tester avec application/xml
+       		let xmlResponse = parser.parseFromString(data, "application/xml");
 		console.log(xmlResponse);
 		// Récupération de sessionId :
 		let session = xmlResponse.getElementsByTagName('session');
