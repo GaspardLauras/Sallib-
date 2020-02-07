@@ -166,9 +166,6 @@ function disconnection(){
 function ADEconnect (){
 	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
         console.log(getDate(currentdate)+getTime(currentdate));
-
-        // API that enables cross-origin requests to anywhere :
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         
         // Connexion à ADE :
         const logger = '?function=connect&login=lecteur1&password=';
@@ -203,5 +200,7 @@ const ip = 'planif.esiee.fr';
 const port ='8443'; 
 // Récupérer sessionId :
 var sessionId;
+// API that enables cross-origin requests to anywhere :
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 // Connexion à ADE
 ADEconnect();
