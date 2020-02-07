@@ -131,15 +131,17 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 
 /*
-	Requêtes http
+	Logs
 */
-
 function getDate (currentD){
 	return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"")+ (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate() + "-";
 }	
 function getTime (currentD){
 	return (currentD.getHours()<10?"0":"") + currentD.getHours()+ "." +(currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ "." + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
 }
+/*
+	Requêtes http
+*/
 function disconnection(){
             const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+ sessionId +'&function=disconnect';
             // Requête http :
@@ -201,5 +203,5 @@ const ip = 'planif.esiee.fr';
 const port ='8443'; 
 // Récupérer sessionId :
 var sessionId;
-//Test de connexion à ADE
+// Connexion à ADE
 ADEconnect();
