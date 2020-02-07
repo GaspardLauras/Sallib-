@@ -161,18 +161,9 @@ function disconnection(){
                     return e;
                 });	
 }
-//Test de connexion à ADE
 function ADEconnect (){
 	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
         console.log(getDate(currentdate)+getTime(currentdate));
-	
-	// Paramètres pour les requêtes
-        const baseURL = 'https://planif.esiee.fr/jsp/webapi';
-        const ip = 'planif.esiee.fr';
-        const port ='8443'; 
-
-        // Récupérer sessionId :
-        var sessionId;
 
         // API that enables cross-origin requests to anywhere :
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -204,4 +195,11 @@ function ADEconnect (){
         setTimeout(disconnection, 1000);
 }
 
+// Paramètres pour les requêtes
+const baseURL = 'https://planif.esiee.fr/jsp/webapi';
+const ip = 'planif.esiee.fr';
+const port ='8443'; 
+// Récupérer sessionId :
+var sessionId;
+//Test de connexion à ADE
 ADEconnect();
