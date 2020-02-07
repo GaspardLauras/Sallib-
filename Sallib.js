@@ -130,49 +130,78 @@ for(var i = 2; i<=6; i++){
 alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONSTRUCTION\n\n\nTEST DE MISE A JOUR');
 
 
+/*
+	Requêtes http
+*/
+
+function getDate (currentD){
+	return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"")+ (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate() + "-";
+}	
+function getTime (currentD){
+	return (currentD.getHours()<10?"0":"") + currentD.getHours()+ "." +(currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ "." + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
+}
+function disconnection(){
+            const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+ sessionId +'&function=disconnect';
+            // Requête http :
+            fetch(proxyUrl + disconnect)
+                .then(response=>response.text()) 
+                .then(data => {
+                        console.log("Déconnexion de session ADE" + disconnect); // log de la requête
+                        // Parser réponse en XML :
+                        let parser = new DOMParser();	
+                        let xmlResponse = parser.parseFromString(data, "application/xml");
+                        console.log("Fichier XML importé :" + xmlResponse); // log du fichier XML 
+                        // Récupération de sessionId :
+                        let disconnected = xmlResponse.getElementsByTagName('disconnected');
+                        sessionId = disconnected[0].getAttribute('sessionId');
+                        console.log("Session ID : " + sessionId);
+                })
+                .catch(e => {
+                    console.log(e);
+                    return e;
+                });	
+}
 //Test de connexion à ADE
 function ADEconnect (){
-	// var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
-	// console.log(getDate(currentdate)+getTime(currentdate));      
-	const baseURL = 'https://planif.esiee.fr/jsp/webapi';
-	const ip = 'planif.esiee.fr';
-	const port ='8443';
-	const logger = '?function=connect&login=lecteur1&password=';
+	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
+        console.log(getDate(currentdate)+getTime(currentdate));
+	
+	// Paramètres pour les requêtes
+        const baseURL = 'https://planif.esiee.fr/jsp/webapi';
+        const ip = 'planif.esiee.fr';
+        const port ='8443'; 
 
-	// Connexion à ADE (connect) :
-	const loggin = 'https://'+ ip +':'+ port +'/jsp/webapi'+logger;
-	console.log(loggin);
+        // Récupérer sessionId :
+        var sessionId;
 
-	// Récupérer sessionId :
-	var sessionId;
-	var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-	document.addEventListener('DOMContentLoaded', ()=>{
-	    fetch(proxyUrl + loggin)
-	    .then(response=>response.text()) 
-	    .then(data => {
-		    let parser = new DOMParser();	
-		    let xmlResponse = parser.parseFromString(data, "application/xml");
-		    console.log("Fichier XML importé :"); 
-		    console.log(xmlResponse); 
-		    // Récupération de sessionId :
-		    let session = xmlResponse.getElementsByTagName('session');
-		    console.log("Session : ");
-		    console.log(session);
-		    sessionId = session[0].getAttribute('id');
-		    console.log("Session ID : ");
-		    console.log(sessionId);
-	    })
-	    .catch(e => {
-		console.log(e);
-		return e;
-	    });	
-	    console.log('Connexion à ADE');
-	})
-
-	const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+sessionId +'&function=disconnect';
-	fetch(proxyUrl + disconnect);
-	console.log("Déconnexion de session ADE");
+        // API that enables cross-origin requests to anywhere :
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        
+        // Connexion à ADE :
+        const logger = '?function=connect&login=lecteur1&password=';
+        const loggin = 'https://'+ ip +':'+ port +'/jsp/webapi'+logger;
+        // Requête http :
+        document.addEventListener('DOMContentLoaded', ()=>{
+            fetch(proxyUrl + loggin)
+            .then(response=>response.text())  
+            .then(data => {
+                    console.log('Connexion à session ADE' + loggin); // log de la requête
+                    // Parser réponse en XML :
+                    let parser = new DOMParser();	
+                    let xmlResponse = parser.parseFromString(data, "application/xml");
+                    console.log("Fichier XML importé :"+ xmlResponse);  // log du fichier XML
+                    // Récupération de sessionId :
+                    let session = xmlResponse.getElementsByTagName('session');
+                    sessionId = session[0].getAttribute('id');
+                    console.log("Session ID : " + sessionId);
+            })
+            .catch(e => {
+                console.log(e);
+                return e;
+            });	
+        })
+        // Déconnexion de ADE - délai de 1 seconde pour attendre les précédentes
+        setTimeout(disconnection, 1000);
 }
 
 ADEconnect();
