@@ -130,77 +130,135 @@ for(var i = 2; i<=6; i++){
 alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONSTRUCTION\n\n\nTEST DE MISE A JOUR');
 
 
+
+// Partie requêtes
 /*
-	Logs
+    Logs
 */
 function getDate (currentD){
-	return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"")+ (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate() + "-";
+    return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"")+ (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate();
 }	
 function getTime (currentD){
-	return (currentD.getHours()<10?"0":"") + currentD.getHours()+ "." +(currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ "." + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
+    return (currentD.getHours()<10?"0":"") + currentD.getHours()+ ":" +(currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ ":" + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
+}
+// Journalisation des requêtes :
+function setLog (functionId, params, duration){
+    // Initialisation objet temporel :
+    let currentDate = new Date();  
+    // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
+    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + "Function {" + functionId + "} | Parameters {"; 
+
+    // Valeur des paramètres de la requête :
+    debut = true;
+    for(var [key, value] of params){
+	logger = logger + (debut==false?", ": "") + key + "="  + value;
+	if (debut==true) debut=false;
+    }
+
+    // Ajout durée de la requête :
+    logger = logger + "} " + "Duration {" + duration + "ms}";
+    // Journaliser :
+    return logger;
 }
 /*
-	Requêtes http
+    Requêtes HTTP
 */
+// Déconnexion de session ADE
 function disconnection(){
-            const disconnect = 'https://'+ ip +':'+ port +'/jsp/webapi?sessionId='+ sessionId +'&function=disconnect';
-            // Requête http :
-            fetch(proxyUrl + disconnect)
-                .then(response=>response.text()) 
-                .then(data => {
-                        console.log("Déconnexion de session ADE" + disconnect); // log de la requête
-                        // Parser réponse en XML :
-                        let parser = new DOMParser();	
-                        let xmlResponse = parser.parseFromString(data, "application/xml");
-                        console.log("Fichier XML importé :" + xmlResponse); // log du fichier XML 
-                        // Récupération de sessionId :
-                        let disconnected = xmlResponse.getElementsByTagName('disconnected');
-                        sessionId = disconnected[0].getAttribute('sessionId');
-                        console.log("Session ID : " + sessionId);
-                })
-                .catch(e => {
-                    console.log(e);
-                    return e;
-                });	
+	    const disconnect = baseURL + '?sessionId='+ sessionId +'&function=disconnect';
+	    // Requête http :
+	    var startRequest3 = new Date().getTime();  
+	    fetch(proxyUrl + disconnect)
+		.then(response=>response.text()) 
+		.then(data => {
+			// Parser réponse en XML :
+			let parser = new DOMParser();	
+			let xmlResponse = parser.parseFromString(data, "application/xml");
+			// console.log("Fichier XML importé :" + xmlResponse); // log du fichier XML 
+			// Récupération de sessionId :
+			let disconnected = xmlResponse.getElementsByTagName('disconnected');
+			let sessionIdent = disconnected[0].getAttribute('sessionId');
+			// Log :
+			var endRequest3 = new Date().getTime();
+			var requestDuration3 = endRequest3 - startRequest3;
+			console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration3));  
+		})
+		.catch(e => {
+		    console.log(e);
+		    return e;
+		});	
 }
-function ADEconnect (){
-	var currentdate = new Date(); // pour les logs, AAAA.MM.JJ-HH:MM:SS
-        console.log(getDate(currentdate)+getTime(currentdate));
-        
-        // Connexion à ADE :
-        const logger = '?function=connect&login=lecteur1&password=';
-        const loggin = 'https://'+ ip +':'+ port +'/jsp/webapi'+logger;
-        // Requête http :
-        document.addEventListener('DOMContentLoaded', ()=>{
-            fetch(proxyUrl + loggin)
-            .then(response=>response.text())  
-            .then(data => {
-                    console.log('Connexion à session ADE' + loggin); // log de la requête
-                    // Parser réponse en XML :
-                    let parser = new DOMParser();	
-                    let xmlResponse = parser.parseFromString(data, "application/xml");
-                    console.log("Fichier XML importé :"+ xmlResponse);  // log du fichier XML
-                    // Récupération de sessionId :
-                    let session = xmlResponse.getElementsByTagName('session');
-                    sessionId = session[0].getAttribute('id');
-                    console.log("Session ID : " + sessionId);
-            })
-            .catch(e => {
-                console.log(e);
-                return e;
-            });	
-        })
-        // Déconnexion de ADE - délai de 1 seconde pour attendre les précédentes
-        setTimeout(disconnection, 1000);
+// Création d'un projet ADE 
+function settingProject(){
+	    const setProject = baseURL + '?sessionId='+ sessionId +'&function=setProject' + '&projectID=' + projectId;
+	    // Requête http :
+	    var startRequest2 = new Date().getTime();  
+	    fetch(proxyUrl + setProject)
+		.then(response=>response.text()) 
+		.then(data => {
+			// Parser réponse en XML :
+			let parser = new DOMParser();	
+			let xmlResponse = parser.parseFromString(data, "application/xml"); 
+			// Récupération de projectId :
+			let settingProject  = xmlResponse.getElementsByTagName('setProject');
+			let sessionIdent = settingProject[0].getAttribute('sessionId');
+			let projectIdent = settingProject[0].getAttribute('projectId');        
+			// Log :
+			var endRequest2 = new Date().getTime();
+			var requestDuration2 = endRequest2 - startRequest2;
+			console.log(setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2));  
+		})
+		.catch(e => {
+		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+		    return e;
+		});	
+}
+function ADEconnect (){          
+	// Ouverture connexion à ADE 
+	const loggin = baseURL + '?function=connect&login=lecteur1&password=';
+	// Connexion à session ADE 
+	document.addEventListener('DOMContentLoaded', ()=>{
+	    // Requête http :
+	    var startRequest = new Date().getTime();  
+	    fetch(proxyUrl + loggin)
+	    .then(response=>response.text())  
+	    .then(data => {
+		    // Parser réponse en XML :
+		    let parser = new DOMParser();	
+		    let xmlResponse = parser.parseFromString(data, "application/xml");
+		    // Récupération de sessionId :
+		    let session = xmlResponse.getElementsByTagName('session');
+		    sessionId = session[0].getAttribute('id');
+		    // Log :
+		    var endRequest = new Date().getTime();
+		    var requestDuration = endRequest - startRequest;
+		    console.log(setLog('connect', [['Session ID', sessionId]], requestDuration));
+	    })
+	    .catch(e => {
+		console.log(e);
+		return e;
+	    });	
+
+	})
+
+	// Renseigner le projet pour les futurs appels aux méthodes get 
+	setTimeout(settingProject, 1000);
+
+	// Déconnexion de ADE - délai de 1 seconde pour attendre les précédentes
+	setTimeout(disconnection, 2000);
 }
 
-// Paramètres pour les requêtes
-const baseURL = 'https://planif.esiee.fr/jsp/webapi';
+// Paramètres pour les requêtes :
 const ip = 'planif.esiee.fr';
 const port ='8443'; 
+// URL commune aux requêtes :
+const baseURL = 'https://'+ ip +':'+ port +'/jsp/webapi';
+// IDentifiant de projet ADE - mettre à jour chaque année :
+const projectId = '6'; 
 // Récupérer sessionId :
 var sessionId;
 // API that enables cross-origin requests to anywhere :
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-// Connexion à ADE
+
+// Connexion à ADE (main) :
 ADEconnect();
