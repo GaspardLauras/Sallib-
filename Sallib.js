@@ -241,10 +241,10 @@ function ADEconnect (){
 
 	})
 
-	// Renseigner le projet pour les futurs appels aux méthodes get 
+	// Renseigner le projet pour les futurs appels aux méthodes get (délai de 1 seconde)
 	setTimeout(settingProject, 1000);
 
-	// Déconnexion de ADE - délai de 1 seconde pour attendre les précédentes
+	// Déconnexion de ADE - délai de 2 secondes pour attendre les précédentes
 	setTimeout(disconnection, 2000);
 }
 
