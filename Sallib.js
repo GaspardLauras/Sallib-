@@ -167,21 +167,20 @@ function setLog (functionId, params, duration){
 function disconnection(){
 	    const disconnect = baseURL + '?sessionId='+ sessionId +'&function=disconnect';
 	    // Requête http :
-	    var startRequest3 = new Date().getTime();  
+	    var startRequest4 = new Date().getTime();  
 	    fetch(proxyUrl + disconnect)
 		.then(response=>response.text()) 
 		.then(data => {
 			// Parser réponse en XML :
 			let parser = new DOMParser();	
-			let xmlResponse = parser.parseFromString(data, "application/xml");
-			// console.log("Fichier XML importé :" + xmlResponse); // log du fichier XML 
+			let xmlResponse = parser.parseFromString(data, "application/xml"); 
 			// Récupération de sessionId :
 			let disconnected = xmlResponse.getElementsByTagName('disconnected');
 			let sessionIdent = disconnected[0].getAttribute('sessionId');
 			// Log :
-			var endRequest3 = new Date().getTime();
-			var requestDuration3 = endRequest3 - startRequest3;
-			console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration3));  
+			var endRequest4 = new Date().getTime();
+			var requestDuration4 = endRequest4 - startRequest4;
+			console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration4));  
 		})
 		.catch(e => {
 		    console.log(e);
@@ -190,7 +189,7 @@ function disconnection(){
 }
 // Création d'un projet ADE 
 function settingProject(){
-	    const setProject = baseURL + '?sessionId='+ sessionId +'&function=setProject' + '&projectID=' + projectId;
+	    const setProject = baseURL + '?sessionId='+ sessionId +'&function=setProject' + '&projectId=' + projectId;
 	    // Requête http :
 	    var startRequest2 = new Date().getTime();  
 	    fetch(proxyUrl + setProject)
@@ -207,6 +206,29 @@ function settingProject(){
 			var endRequest2 = new Date().getTime();
 			var requestDuration2 = endRequest2 - startRequest2;
 			console.log(setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2));  
+		})
+		.catch(e => {
+		    console.log(e);          
+		    return e;
+		});	
+}
+// Récupérer les events de ADE (tree = true et detail = 8)
+function getEvents(){
+	    const events = baseURL + '?sessionId='+ sessionId +'&function=getEvents&tree=true&detail=8';
+	    // Requête http :
+	    var startRequest3 = new Date().getTime(); 
+	    fetch(proxyUrl + events)
+		.then(response=>response.text()) 
+		.then(data => {
+		    // Parser réponse en XML :
+		    let parser = new DOMParser();	
+		    let xmlResponse = parser.parseFromString(data, "application/xml"); 
+		    console.log(xmlResponse);
+		    // EXPLORER RESOURCES ET HOURS ETC. => FILTRER
+		    // Log :
+		    var endRequest3 = new Date().getTime();
+		    var requestDuration3 = endRequest3 - startRequest3;
+		    console.log(setLog('get Events', [['Session ID', sessionId], ['tree', true], ['detail', 8]], requestDuration3));  
 		})
 		.catch(e => {
 		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
@@ -243,9 +265,12 @@ function ADEconnect (){
 
 	// Renseigner le projet pour les futurs appels aux méthodes get (délai de 1 seconde)
 	setTimeout(settingProject, 1000);
+	
+	// Récupérer évènements ADE 
+        // setTimeout(getEvents, 1500);
 
-	// Déconnexion de ADE - délai de 2 secondes pour attendre les précédentes
-	setTimeout(disconnection, 2000);
+	// Déconnexion de ADE - délai de 3 secondes pour attendre les précédentes
+	setTimeout(disconnection, 3000);
 }
 
 // Paramètres pour les requêtes :
