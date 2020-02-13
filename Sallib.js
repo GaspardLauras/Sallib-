@@ -131,18 +131,20 @@ alert('LES NUMEROS DE SALLES NE SONT PAS CORRECTS\nCE SITE EST EN COURS DE CONST
 
 
 
-// Partie requêtes
 /*
-    Logs
+    ====================================================================================================================================
+    						Logs
+    ====================================================================================================================================
 */
 function getDate (currentD){
-    return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"")+ (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate();
+    return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"") + (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate();
 }	
 function getTime (currentD){
-    return (currentD.getHours()<10?"0":"") + currentD.getHours()+ ":" +(currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ ":" + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
+    return (currentD.getHours()<10?"0":"") + currentD.getHours()+ ":" + (currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ ":" + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
 }
-// Journalisation des requêtes :
-function setLog (functionId, params, duration){
+
+// Journalisation des requêtes
+function setLog (functionId, params, duration, size){
     // Initialisation objet temporel :
     let currentDate = new Date();  
     // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
@@ -155,14 +157,165 @@ function setLog (functionId, params, duration){
 	if (debut==true) debut=false;
     }
 
-    // Ajout durée de la requête :
-    logger = logger + "} " + "Duration {" + duration + "ms}";
+    // Ajout taille de la réponse et durée de la requête :
+    logger = logger + "} " + "| Size {" + size + " items}" + " | Duration {" + duration + "ms}";
     // Journaliser :
     return logger;
 }
+
+// Journalisation des erreurs
+function setErrorLog (functionId, errorMessage, duration){
+    // Initialisation objet temporel :
+    let currentDate = new Date();  
+    // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
+    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + "Function {" + functionId + "} | "; 
+    return logger + errorMessage;  
+}
+
+
 /*
-    Requêtes HTTP
+====================================================================================================================================
+    						Récupération date du jour - format MM/JJ/AAAA
+====================================================================================================================================
 */
+function getCurrentDateForEvent(){   
+    let currentD = new Date();  
+    return ((currentD.getMonth()+1)<10?"0":"") + (currentD.getMonth()+1) + "/" + (currentD.getDate()<10?"0":"") + currentD.getDate() + "/" + currentD.getFullYear();
+}
+
+
+/*
+====================================================================================================================================
+    						Requêtes http
+====================================================================================================================================
+*/
+// Création d'un projet ADE 
+function settingProject(){
+	    const setProject = baseURL + '?sessionId='+ sessionId +'&function=setProject' + '&projectId=' + projectId;
+	    // Requête http :
+	    var startRequest2 = new Date().getTime();  
+	    fetch(proxyUrl + setProject)
+		.then(response=>response.text()) 
+		.then(data => {
+			// Parser réponse en XML :
+			let parser = new DOMParser();	
+			let xmlResponse = parser.parseFromString(data, "application/xml"); 
+			// console.log(xmlResponse);
+			// Récupération de projectId :
+			let settingProject  = xmlResponse.getElementsByTagName('setProject');
+			let sessionIdent = settingProject[0].getAttribute('sessionId');
+			let projectIdent = settingProject[0].getAttribute('projectId');        
+			// Log :
+			var endRequest2 = new Date().getTime();
+			var requestDuration2 = endRequest2 - startRequest2;
+			if(sessionIdent == 'undefined'){
+				console.log(setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2));
+			}
+			else {
+			    console.log(setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2,  data.length));  
+			}
+
+			// Get Rooms Total :
+			// getClassroomsTot(); // pour récupérer toutes les rooms de ADE ESIEE
+		    
+			// Get events :
+			getEvents();
+		})
+		.catch(e => {
+		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+		    return e;
+		});	
+}
+// Récupérer les events de ADE 
+function getEvents(){
+	    // var date = '01/24/2020';
+	    var date = getCurrentDateForEvent();
+	    const events = baseURL + '?sessionId='+ sessionId +'&function=getEvents&tree=true&date=' + date + '&detail=8';
+	    // Requête http :
+	    var startRequest3 = new Date().getTime(); 
+	    fetch(proxyUrl + events)
+		.then(response=>response.text()) 
+		.then(data => {
+		    // Parser réponse en XML :
+		    let parser = new DOMParser();	
+		    let xmlResponse = parser.parseFromString(data, "application/xml"); 
+		    // Log :
+		    console.log(xmlResponse);
+		    var endRequest3 = new Date().getTime();
+		    var requestDuration3 = endRequest3 - startRequest3;
+		    console.log(setLog('get Events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length)); 
+		    // Récupération des balises <events> :
+		    let event  = xmlResponse.getElementsByTagName('event');
+		    // Récupération des balises inférieures <resources> :
+		    var resources  = xmlResponse.getElementsByTagName('resources');
+		    // Array de 3 valeurs par élément pour répertorier chaque salle avec ses dates de réservation programmé (https://stackoverflow.com/questions/13219348/adding-multiple-values-to-an-array-in-javascript)
+		    var occupiedRooms = [];
+		    // Parcourir chaque event de la trame xml retournée :
+		    for(j=0; j < event.length; j++){
+			// Date de début de réservation de salle :
+			let startHour = event[j].getAttribute('startHour');
+			// Date de fin de réservation de salle :
+			let endHour = event[j].getAttribute('endHour');   
+			// Récupère les éléments fils de <resources> :
+			var childNodesResources = resources[j].children;
+			// Parcourir les balises <resources> :
+			for(i=0; i< childNodesResources.length; i++){
+			    // Parcourir les balises <resource> - tester s'il s'agit d'une ressource de type 'salle' :
+			    if(childNodesResources[i].getAttribute('category') == 'classroom'){
+				// Récupérer le nom de la salle :
+				occupiedRooms.push({startH : startHour, endH : endHour, room : childNodesResources[i].getAttribute('name')});
+			    }
+			}
+		    }
+		    console.log(occupiedRooms);
+
+		    // Disconnection
+		    disconnection();
+		})
+		.catch(e => {
+		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+		    return e;
+		});	
+}
+
+// Récupérer liste de toutes les salles de l'ESIEE répertoriées sur ADE
+function getClassroomsTot(){
+	    const classrooms = baseURL + '?sessionId='+ sessionId +'&function=getResources&category=classroom&detail=2';
+	    // Requête http :
+	    var startRequest5 = new Date().getTime(); 
+	    fetch(proxyUrl + classrooms)
+		.then(response=>response.text()) 
+		.then(data => {
+		    // Parser réponse en XML :
+		    let parser = new DOMParser();	
+		    let xmlResponse = parser.parseFromString(data, "application/xml"); 
+		    // Log :
+		    console.log(xmlResponse);
+		    var endRequest5 = new Date().getTime();
+		    var requestDuration5 = endRequest5 - startRequest5;      
+		    console.log(setLog('get Resources', [['Session ID', sessionId], ['detail', 2], ['category', 'classroom']], requestDuration5, data.length)); 
+		    // Récupération des balises <room> :
+		    var rooms  = xmlResponse.getElementsByTagName('room');
+		    // Liste contenant les noms des salles :
+		    const roomsESIEE = [];
+		    // Lister les noms des différentes salles :
+		    for(i=0; i < rooms.length; i++){
+			roomsESIEE.push(rooms[i].getAttribute('name'));
+		    }
+
+		    // Logger nombre de salles et noms des salles de l'ESIEE :
+		    console.log('Nombre de salles : ' + roomsESIEE.length);
+		    console.log(roomsESIEE);
+
+		    // Disconnection
+		    disconnection(); 
+		})
+		.catch(e => {
+		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+		    return e;
+		});	
+}
+
 // Déconnexion de session ADE
 function disconnection(){
 	    const disconnect = baseURL + '?sessionId='+ sessionId +'&function=disconnect';
@@ -180,61 +333,19 @@ function disconnection(){
 			// Log :
 			var endRequest4 = new Date().getTime();
 			var requestDuration4 = endRequest4 - startRequest4;
-			console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration4));  
+			if(sessionIdent == 'undefined'){
+				console.log(setErrorLog('disconnect', 'ERROR "session Id" is undefined !', requestDuration4));
+			}
+			else {
+			    console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration4, data.length));  
+			}
 		})
 		.catch(e => {
 		    console.log(e);
 		    return e;
 		});	
 }
-// Création d'un projet ADE 
-function settingProject(){
-	    const setProject = baseURL + '?sessionId='+ sessionId +'&function=setProject' + '&projectId=' + projectId;
-	    // Requête http :
-	    var startRequest2 = new Date().getTime();  
-	    fetch(proxyUrl + setProject)
-		.then(response=>response.text()) 
-		.then(data => {
-			// Parser réponse en XML :
-			let parser = new DOMParser();	
-			let xmlResponse = parser.parseFromString(data, "application/xml"); 
-			// Récupération de projectId :
-			let settingProject  = xmlResponse.getElementsByTagName('setProject');
-			let sessionIdent = settingProject[0].getAttribute('sessionId');
-			let projectIdent = settingProject[0].getAttribute('projectId');        
-			// Log :
-			var endRequest2 = new Date().getTime();
-			var requestDuration2 = endRequest2 - startRequest2;
-			console.log(setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2));  
-		})
-		.catch(e => {
-		    console.log(e);          
-		    return e;
-		});	
-}
-// Récupérer les events de ADE (tree = true et detail = 8)
-function getEvents(){
-	    const events = baseURL + '?sessionId='+ sessionId +'&function=getEvents&tree=true&detail=8';
-	    // Requête http :
-	    var startRequest3 = new Date().getTime(); 
-	    fetch(proxyUrl + events)
-		.then(response=>response.text()) 
-		.then(data => {
-		    // Parser réponse en XML :
-		    let parser = new DOMParser();	
-		    let xmlResponse = parser.parseFromString(data, "application/xml"); 
-		    console.log(xmlResponse);
-		    // EXPLORER RESOURCES ET HOURS ETC. => FILTRER
-		    // Log :
-		    var endRequest3 = new Date().getTime();
-		    var requestDuration3 = endRequest3 - startRequest3;
-		    console.log(setLog('get Events', [['Session ID', sessionId], ['tree', true], ['detail', 8]], requestDuration3));  
-		})
-		.catch(e => {
-		    console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
-		    return e;
-		});	
-}
+
 function ADEconnect (){          
 	// Ouverture connexion à ADE 
 	const loggin = baseURL + '?function=connect&login=lecteur1&password=';
@@ -254,7 +365,10 @@ function ADEconnect (){
 		    // Log :
 		    var endRequest = new Date().getTime();
 		    var requestDuration = endRequest - startRequest;
-		    console.log(setLog('connect', [['Session ID', sessionId]], requestDuration));
+		    console.log(setLog('connect', [['Session ID', sessionId]], requestDuration, data.length));
+
+		    // Set Project :
+		    settingProject();
 	    })
 	    .catch(e => {
 		console.log(e);
@@ -262,17 +376,13 @@ function ADEconnect (){
 	    });	
 
 	})
-
-	// Renseigner le projet pour les futurs appels aux méthodes get (délai de 1 seconde)
-	setTimeout(settingProject, 1000);
-	
-	// Récupérer évènements ADE 
-        // setTimeout(getEvents, 1500);
-
-	// Déconnexion de ADE - délai de 3 secondes pour attendre les précédentes
-	setTimeout(disconnection, 3000);
 }
 
+/*
+====================================================================================================================================
+    						Main
+====================================================================================================================================
+*/
 // Paramètres pour les requêtes :
 const ip = 'planif.esiee.fr';
 const port ='8443'; 
@@ -283,7 +393,7 @@ const projectId = '6';
 // Récupérer sessionId :
 var sessionId;
 // API that enables cross-origin requests to anywhere :
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Trouver une solution viable ! + CORS demander à D.B.
 
 // Connexion à ADE (main) :
 ADEconnect();
