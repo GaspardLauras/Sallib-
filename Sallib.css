@@ -47,6 +47,26 @@ h2
 
 
 
+/* CHOIX DE L'HORAIRE*/
+.HEURE
+{
+	display: flex;
+	flex-wrap: nowrap;	
+	justify-content: center;
+}
+
+.heure_input
+{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.heure_input#debut
+{}
+
+.heure_input#fin
+{}
+
 /* SALLES LIBRES */
 .salles_libres_containeur
 {
@@ -64,7 +84,7 @@ h2
 	vertical-align: center;
 }
 
-div.salles_libres p
+.salles_libres p
 {
 	font-size: 30px;
 }

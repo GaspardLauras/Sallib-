@@ -34,7 +34,75 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   $('div.'+classDivCree).css('margin-bottom','10px');
 }
 
+//Permet d'afficher sur le font les différentes salles
+function AffichageFront(occupiedRooms){
+  occupiedRooms = occupiedRooms[0];
+        console.log(occupiedRooms);
 
+        ajoutSallesH(occupiedRooms.epi1, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.epi2, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.epi3, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.epi4, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.epi5, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.epi6, 'salles_libres_div', '.salles_libres');
+        ajoutSallesH(occupiedRooms.autres, 'salles_libres_div', '.salles_libres');
+
+
+        $('div.salles_libres_div').hide();//salles libres cachées par défaut
+        $('div.salles_libres').click(function(){
+          $('div.salles_libres_div').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi1, 'salles_libres_epi1', '#epi_1');
+        $('div.salles_libres_epi1').hide();//salles libres cachées par défaut
+        $('div#epi_1').click(function(){
+          $('div.salles_libres_epi1').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi2, 'salles_libres_epi2', '#epi_2');
+        $('div.salles_libres_epi2').hide();//salles libres cachées par défaut
+        $('div#epi_2').click(function(){
+          $('div.salles_libres_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi3, 'salles_libres_epi3', '#epi_3');
+        $('div.salles_libres_epi3').hide();//salles libres cachées par défaut
+        $('div#epi_3').click(function(){
+          $('div.salles_libres_epi3').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi4, 'salles_libres_epi4', '#epi_4');
+        $('div.salles_libres_epi4').hide();//salles libres cachées par défaut
+        $('div#epi_4').click(function(){
+          $('div.salles_libres_epi4').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi5, 'salles_libres_epi5', '#epi_5');
+        $('div.salles_libres_epi5').hide();//salles libres cachées par défaut
+        $('div#epi_5').click(function(){
+          $('div.salles_libres_epi5').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.epi6, 'salles_libres_epi6', '#epi_6');
+        $('div.salles_libres_epi6').hide();//salles libres cachées par défaut
+        $('div#epi_6').click(function(){
+          $('div.salles_libres_epi6').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+
+        ajoutSallesH(occupiedRooms.autres, 'salles_libres_rue', '.rue');
+        $('div.salles_libres_rue').hide();//salles libres cachées par défaut
+        $('div.rue').click(function(){
+          $('div.salles_libres_rue').toggle(300);//Permet de cacher et d'afficher les salles libres
+          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        });
+}
 
 
 
@@ -386,73 +454,8 @@ function getEvents(sessionId){
         //console.log(occupiedRooms);
         // utilisable en faisant occupiedRooms.epi1 etc.
 
-        occupiedRooms = occupiedRooms[0];
-        console.log(occupiedRooms);
-
-        ajoutSallesH(occupiedRooms.epi1, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.epi2, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.epi3, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.epi4, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.epi5, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.epi6, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(occupiedRooms.autres, 'salles_libres_div', '.salles_libres');
-
-
-        $('div.salles_libres_div').hide();//salles libres cachées par défaut
-        $('div.salles_libres').click(function(){
-          $('div.salles_libres_div').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi1, 'salles_libres_epi1', '#epi_1');
-        $('div.salles_libres_epi1').hide();//salles libres cachées par défaut
-        $('div#epi_1').click(function(){
-          $('div.salles_libres_epi1').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi2, 'salles_libres_epi2', '#epi_2');
-        $('div.salles_libres_epi2').hide();//salles libres cachées par défaut
-        $('div#epi_2').click(function(){
-          $('div.salles_libres_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi3, 'salles_libres_epi3', '#epi_3');
-        $('div.salles_libres_epi3').hide();//salles libres cachées par défaut
-        $('div#epi_3').click(function(){
-          $('div.salles_libres_epi3').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi4, 'salles_libres_epi4', '#epi_4');
-        $('div.salles_libres_epi4').hide();//salles libres cachées par défaut
-        $('div#epi_4').click(function(){
-          $('div.salles_libres_epi4').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi5, 'salles_libres_epi5', '#epi_5');
-        $('div.salles_libres_epi5').hide();//salles libres cachées par défaut
-        $('div#epi_5').click(function(){
-          $('div.salles_libres_epi5').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.epi6, 'salles_libres_epi6', '#epi_6');
-        $('div.salles_libres_epi6').hide();//salles libres cachées par défaut
-        $('div#epi_6').click(function(){
-          $('div.salles_libres_epi6').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(occupiedRooms.autres, 'salles_libres_rue', '.rue');
-        $('div.salles_libres_rue').hide();//salles libres cachées par défaut
-        $('div.rue').click(function(){
-          $('div.salles_libres_rue').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
+        //Affichage sur le Front
+        AffichageFront(occupiedRooms);
 
         // Disconnection
         disconnection(sessionId);
@@ -975,6 +978,9 @@ const EPI_4 = ['4003V+', '4007V', '4105V', '4109', '4201+', '4305', '4307+', '44
 const EPI_5 = ['5004','5006V+','5008V++','5101+','5103+', '5105V', '5107V', '5155', '5201V+', '5207+', '5209V', '5301V','5308', '5309V', '5401V', '5403V','5407V'];
 const EPI_6 = ['6301','6401+','6409V'];
 const AUTRES = ['0110', '0210', '0160', '0260', '0112', '0113', '0114', '0115', '0162V', '0163', '0164V','0165V','0232', '0244', '0351'];
+
+//const PROFS = 
+
 
 // Liste salles de Cergy :
 const Cergy = ['108', '109', '110', '204', '208', 'B5', 'B6', 'C1', 'C2', 'C3', 'C4', 'P1', 'P2', 'P3', 'TP1', 'TP2', 'TP3', 'TP4', 'TPR1', 'TPR2'];
