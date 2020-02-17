@@ -1011,17 +1011,26 @@ ADEconnect();
 
 
 //Test pour le bouton et les inputs
+var now = new Date();
 var horaire_debut = document.querySelector('input#debut');
+var horaire_fin = document.querySelector('input#fin');
+
+var heure = now.getHours();
+var minutes = now.getMinutes();
+if(minutes<10)
+  minutes = '0'+minutes;
+
+horaire_debut.value = heure+':'+minutes;
+horaire_fin.value = heure+2+':'+minutes;
+
 horaire_debut.addEventListener('input',function(){
   console.log(horaire_debut.value);
 });
 
-var horaire_fin = document.querySelector('input#fin');
 horaire_fin.addEventListener('input',function(){
   console.log(horaire_fin.value);
 });
 
 $('input#bouton_recherche').click(function(){
-  console.log('WOW ca marche');
-  console.log('DEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
+  console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
 });

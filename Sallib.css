@@ -48,46 +48,44 @@ h2
 
 
 /* CHOIX DE L'HORAIRE*/
-.choix_heure
-{
+.HEURE{
+	font-size: 30px;
+}
+
+.choix_heure{
 	display: flex;
 	flex-wrap: nowrap;	
 	justify-content: center;
 }
 
-.bouton_recherche
-{
+.bouton_recherche{
+	font-weight: bold;
+	border-radius: 10px;
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: center;
 }
 
-.bouton_recherche_div
-{
+.bouton_recherche_div{
 	width: auto; height: 100px;
 }
 
-input#bouton_recherche:hover
-{
+input#bouton_recherche:hover{
 	cursor: pointer;
 }
 
-input#bouton_recherche:active
-{
+input#bouton_recherche:active{
 	background-color: grey;
 }
 
-.heure_input
-{
+.heure_input{
 	margin-left: 20px;
 	margin-right: 20px;
 }
 
-.heure_input#debut
-{}
+.heure_input#debut{}
 
-.heure_input#fin
-{}
+.heure_input#fin{}
 
 
 
