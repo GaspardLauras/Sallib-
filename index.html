@@ -33,22 +33,29 @@
 
 		<!--CHOIX DE L'HEURE-->
 		<div class="HEURE">
-			<div class="heure_input">
-				<p>DE </p>
+			<div class="choix_heure">
+				<div class="heure_input">DE</div>
+
+				<div class="heure_input" id="debut">
+					<input type="time" id="debut" name="debut" 
+	      					min="8:00" max="17:00" size="10" required>
+				</div>
+
+				<div class="heure_input">A</div>
+
+				<div class="heure_input" id="fin">
+					<input type="time" id="fin" name="fin" 
+	      					min="9:00" max="19:00" size="10" required>
+				</div>
 			</div>
 
-			<div class="heure_input" id="debut">
-				<input type="time" id="debut" name="debut" 
-      					min="8:00" max="17:00" size="10" required>
-			</div>
+			<br>
 
-			<div class="heure_input">
-				<p> A </p>
-			</div>
-
-			<div class="heure_input" id="fin">
-				<input type="time" id="fin" name="fin" 
-      					min="9:00" max="19:00" size="10" required>
+			<div class="bouton_recherche">
+				<div class="bouton_recherche_div">
+					<input type="button" name="bouton_recherche" id="bouton_recherche"
+						value="RECHERCHER" required>
+				</div>
 			</div>
 		</div>
 

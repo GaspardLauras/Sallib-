@@ -48,11 +48,33 @@ h2
 
 
 /* CHOIX DE L'HORAIRE*/
-.HEURE
+.choix_heure
 {
 	display: flex;
 	flex-wrap: nowrap;	
 	justify-content: center;
+}
+
+.bouton_recherche
+{
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+
+.bouton_recherche_div
+{
+	width: auto; height: 100px;
+}
+
+input#bouton_recherche:hover
+{
+	cursor: pointer;
+}
+
+input#bouton_recherche:active
+{
+	background-color: grey;
 }
 
 .heure_input
@@ -66,6 +88,8 @@ h2
 
 .heure_input#fin
 {}
+
+
 
 /* SALLES LIBRES */
 .salles_libres_containeur

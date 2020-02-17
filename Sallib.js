@@ -1001,3 +1001,27 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Trouver une solutio
 // Connexion à ADE (main) :
 ADEconnect();
 
+
+
+
+
+
+
+
+
+
+//Test pour le bouton et les inputs
+var horaire_debut = document.querySelector('input#debut');
+horaire_debut.addEventListener('input',function(){
+  console.log(horaire_debut.value);
+});
+
+var horaire_fin = document.querySelector('input#fin');
+horaire_fin.addEventListener('input',function(){
+  console.log(horaire_fin.value);
+});
+
+$('input#bouton_recherche').click(function(){
+  console.log('WOW ca marche');
+  console.log('DEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
+});
