@@ -1,21 +1,3 @@
-//Permet de comparer la liste des salles existantes à la liste des salles occupées pour
-//avoir la liste des salles libres
-function compare(Salles_possibles, salles_occupées){
-  var SL = [];
-  for(var i = 0; i<Salles_possibles.length; i++){
-    var libre = true;
-    for(var j = 0; i<salles_occupées.length; j++){
-      if(Salles_possibles[i]==salles_occupées[j]){
-        libre = false;
-      }
-    }
-    if(libre){
-      SL.push(Salles_possibles[i]);
-    }
-  }
-  return SL;
-}
-
 //Permet d'ajouter les salles d'une liste
 function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
