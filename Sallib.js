@@ -17,8 +17,7 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
 }
 
 //Permet d'afficher sur le font les différentes salles
-function AffichageFront(occupiedRooms){
-  occupiedRooms = occupiedRooms[0];
+function AffichageFront(occupiedRooms){occupiedRooms = occupiedRooms[0];
         console.log(occupiedRooms);
 
         ajoutSallesH(occupiedRooms.epi1, 'salles_libres_div', '.salles_libres');
@@ -796,6 +795,6 @@ horaire_fin.addEventListener('input',function(){
   console.log(horaire_fin.value);
 });
 
-$('input#bouton_recherche').click(function(){
+$('button.bouton_recherche').click(function(){
   console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
 });
