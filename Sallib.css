@@ -7,8 +7,8 @@ html
 
 
 
-/* BODY */
-/* MENU */
+/*************************************************************************
+***************************** MENU ***************************************/
 header{
 	box-sizing: border-box;
 	margin: 0px;
@@ -69,7 +69,8 @@ button:hover{
 
 
 
-/* CHOIX DE L'HORAIRE*/
+/*************************************************************************
+***************************** HORAIRE ***********************************/
 .HEURE{
 	font-size: 30px;
 }
@@ -94,57 +95,51 @@ button:hover{
 	transition: all 0.3s ease 0s;
 }
 
-input#bouton_recherche:hover{
-	cursor: pointer;
-}
-
-input#bouton_recherche:active{
-	background-color: grey;
-}
-
 .heure_input{
 	margin-left: 20px;
 	margin-right: 20px;
 }
 
-.heure_input#debut{}
-
-.heure_input#fin{}
 
 
 
-/* SALLES LIBRES */
-.salles_libres_containeur
-{
-	margin-top: 20px;
-	margin-bottom: 40px;
-	display: flex;
-	border: whitesmoke solid 2px;
-	justify-content: space-around;
-}
-
-.salles_libres
-{	
+/*************************************************************************
+***************************** SALLES LIBRES *****************************/
+.salles_libres{
+	border: solid 2px #edf0f1;
+	margin: 40px 0px;
 	text-align: center;
-	width: 400px;
-	vertical-align: center;
-}
-
-.salles_libres p
-{
-	font-size: 30px;
-}
-
-
-.salles_libres:hover
-{
 	cursor: pointer;
 }
 
+/* .salles_libres div{
+	border: solid 2px red;
+	padding: 10px;
+} */
+
+.salles_libres_text{
+	cursor: pointer;
+	margin: 10px;
+	transition: all 0.3s ease 0s;
+}
+
+.salles_libres_text:hover{
+	font-size: 20px;
+	color: rgba(0, 136, 169, 1);
+}
+
+.salles_libres_containeur{
+	display: flex;
+	justify-content: space-around;
+}
 
 
-/* CARTE */
-.carte_esiee{}
+
+
+
+
+/*************************************************************************
+***************************** CARTE *************************************/
 
 .rue
 {
@@ -198,7 +193,8 @@ input#bouton_recherche:active{
 
 
 
-/* FOOTER */
+/*************************************************************************
+***************************** FOOTER ************************************/
 footer
 {
 	margin-top: 50px;

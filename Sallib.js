@@ -16,28 +16,35 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   $('div.'+classDivCree).css('margin-bottom','10px');
 }
 
+var colone = 0;
+function AjoutSallecolones(arraySalles){
+    for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
+        colone ++;
+        $('div.salles_libres_containeur_'+colone).append('<div class="salles">'+arraySalles[i]+'</div>');
+        if(colone == 4){colone = 0;}
+    }
+
+    $('div.salles').css('margin','10px');
+}
+
 //Permet d'afficher sur le font les différentes salles
-<<<<<<< HEAD
-function AffichageFront(occupiedRooms){occupiedRooms = occupiedRooms[0];
-        console.log(occupiedRooms);
-=======
+
 function AffichageFront(rooms){
     rooms = rooms[0];
         // console.log(occupiedRooms);
->>>>>>> 34bccc156af10fac4e479219951ba03887adc529
 
-        ajoutSallesH(rooms.epi1, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.epi2, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.epi3, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.epi4, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.epi5, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.epi6, 'salles_libres_div', '.salles_libres');
-        ajoutSallesH(rooms.autres, 'salles_libres_div', '.salles_libres');
+        AjoutSallecolones(rooms.epi1);
+        AjoutSallecolones(rooms.epi2);
+        AjoutSallecolones(rooms.epi3);
+        AjoutSallecolones(rooms.epi4);
+        AjoutSallecolones(rooms.epi5);
+        AjoutSallecolones(rooms.epi6);
+        AjoutSallecolones(rooms.autres);
 
 
-        $('div.salles_libres_div').hide();//salles libres cachées par défaut
+        $('div.salles_libres_containeur').hide();//salles libres cachées par défaut
         $('div.salles_libres').click(function(){
-          $('div.salles_libres_div').toggle(300);//Permet de cacher et d'afficher les salles libres
+          $('div.salles_libres_containeur').toggle(300);//Permet de cacher et d'afficher les salles libres
           //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
         });
 
@@ -773,6 +780,7 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Trouver une solutio
 
 // Array qui contiendra les salles occupées (classées par épi):
 var planifRooms = [];
+
 
 // Connexion à ADE (main) :
 ADEconnect();
