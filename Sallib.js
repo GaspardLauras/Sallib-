@@ -1,21 +1,3 @@
-//Permet de comparer la liste des salles existantes à la liste des salles occupées pour
-//avoir la liste des salles libres
-function compare(Salles_possibles, salles_occupées){
-  var SL = [];
-  for(var i = 0; i<Salles_possibles.length; i++){
-    var libre = true;
-    for(var j = 0; i<salles_occupées.length; j++){
-      if(Salles_possibles[i]==salles_occupées[j]){
-        libre = false;
-      }
-    }
-    if(libre){
-      SL.push(Salles_possibles[i]);
-    }
-  }
-  return SL;
-}
-
 //Permet d'ajouter les salles d'une liste
 function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
@@ -322,10 +304,189 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
 }
 
 
+// Transforme l'heure String au format "HH:MM" en valeur numérique de la forme HH,MM       
+function timeToNumeral(hourString){
+    var split = hourString.split(":");
+    return parseInt(split[0], 10) + parseInt((parseInt(split[1], 10))/6)/10; 
+}
+
+
+// Obtenir l'heure actuelle, créneau de 2h par défaut
+function getDefaultSlot(){   
+    // Objet temporel :
+    let currentDate = new Date(); 
+
+    // Heures et minutes :
+    let HourStart = currentDate.getHours();
+    let MinuteStart = currentDate.getMinutes();
+
+    // Début du créneau qui commence à l'heure actuelle :
+    let startHour = (HourStart<10?"0":"") + HourStart + ":" + (MinuteStart<10?"0":"") + MinuteStart;
+
+    // Fin du créneau de 2 h :
+    let HourEnd = HourStart + 2;
+    let endHour = (HourEnd<10?"0":"") + HourEnd + ":" + (MinuteStart<10?"0":"") + MinuteStart;
+
+    return [startHour, endHour];
+}
 
 
 
 
+// Filtrage des salles libres
+function getSallesLib(occupiedRoomsList, startHour, endHour) {         
+    
+    occupiedRoomsList = occupiedRoomsList[0];
+
+    var START_HOUR = timeToNumeral(startHour);
+    var END_HOUR = timeToNumeral(endHour);
+   
+   // Copie des tableaux :
+   var sallesLibEpi1 = EPI_1.slice();
+   var sallesLibEpi2 = EPI_2.slice();
+   var sallesLibEpi3 = EPI_3.slice();
+   var sallesLibEpi4 = EPI_4.slice();
+   var sallesLibEpi5 = EPI_5.slice();
+   var sallesLibEpi6 = EPI_6.slice();
+   var sallesLibAutres = AUTRES.slice();
+
+    occupiedRoomsList.epi1.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi1.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi1[i]== item.room){
+                        // console.log(item.room);
+                        sallesLibEpi1.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.epi2.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi2.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi2[i]== item.room){
+                        sallesLibEpi2.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.epi3.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi3.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi3[i]== item.room){
+                        sallesLibEpi3.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.epi4.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi4.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi4[i]== item.room){
+                        sallesLibEpi4.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.epi5.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi5.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi5[i]== item.room){
+                        sallesLibEpi5.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.epi6.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibEpi6.length; i++){
+                    let offset = 0;
+                    if(sallesLibEpi6[i]== item.room){
+                        sallesLibEpi6.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    occupiedRoomsList.autres.forEach((item, index) => {
+        let item_startH = timeToNumeral(item.startH);
+        let item_endH = timeToNumeral(item.endH);
+        
+        if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
+            || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
+            || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
+
+                for(let i = 0; i<sallesLibAutres.length; i++){
+                    let offset = 0;
+                    if(sallesLibAutres[i]== item.room){
+                        sallesLibAutres.splice(i-offset,1);
+                        offset ++;
+                        break;
+                    }
+                }
+        }
+    })
+
+    return [{epi1 : sallesLibEpi1, epi2 : sallesLibEpi2, epi3 :  sallesLibEpi3, epi4 :  sallesLibEpi4, epi5 : sallesLibEpi5, epi6 :  sallesLibEpi6, autres : sallesLibAutres}];
+
+}
 
 
 
@@ -410,63 +571,59 @@ function getEvents(sessionId){
     // Requête http :
     var startRequest3 = new Date().getTime(); 
     fetch(proxyUrl + events)
-    .then(response=>response.text()) 
-    .then(data => {
-        // Parser réponse en XML :
-        let parser = new DOMParser();	
-        let xmlResponse = parser.parseFromString(data, "application/xml"); 
-        // Log :
-        console.log(xmlResponse);
-        var endRequest3 = new Date().getTime();
-        var requestDuration3 = endRequest3 - startRequest3;
-        console.log(setLog('get events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length)); 
-        // Récupération des balises <events> :
-        let event  = xmlResponse.getElementsByTagName('event');
-        // Récupération des balises inférieures <resources> :
-        var resources  = xmlResponse.getElementsByTagName('resources');
-        // Array de 3 valeurs par élément pour répertorier chaque salle avec ses dates de réservation programmé (https://stackoverflow.com/questions/13219348/adding-multiple-values-to-an-array-in-javascript)
-        var occupiedRooms = [];
-        // Parcourir chaque event de la trame xml retournée :
-        for(j=0; j < event.length; j++){
-          // Date de début de réservation de salle :
-          let startHour = event[j].getAttribute('startHour');
-          // Date de fin de réservation de salle :
-          let endHour = event[j].getAttribute('endHour');   
-          // Récupère les éléments fils de <resources> :
-          var childNodesResources = resources[j].children;
-          // Parcourir les balises <resources> :
-          for(i=0; i< childNodesResources.length; i++){
-              // Parcourir les balises <resource> - tester s'il s'agit d'une ressource de type 'salle' :
-              if(childNodesResources[i].getAttribute('category') == 'classroom'){
-              // Récupérer le nom de la salle :
-              occupiedRooms.push({startH : startHour, endH : endHour, room : childNodesResources[i].getAttribute('name')});
-              }
-          }
-        }
+        .then(response=>response.text()) 
+        .then(data => {
+            // Parser réponse en XML :
+            let parser = new DOMParser();	
+            let xmlResponse = parser.parseFromString(data, "application/xml"); 
+            // Log :
+            // console.log(xmlResponse);
+            var endRequest3 = new Date().getTime();
+            var requestDuration3 = endRequest3 - startRequest3;
+            console.log(setLog('get events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length)); 
+            // Récupération des balises <events> :
+            let event  = xmlResponse.getElementsByTagName('event');
+            // Récupération des balises inférieures <resources> :
+            var resources  = xmlResponse.getElementsByTagName('resources');
+            // Array de 3 valeurs par élément pour répertorier chaque salle avec ses dates de réservation programmé (https://stackoverflow.com/questions/13219348/adding-multiple-values-to-an-array-in-javascript)
+            var occupiedRooms = [];
+            // Parcourir chaque event de la trame xml retournée :
+            for(j=0; j < event.length; j++){
+                // Date de début de réservation de salle :
+                let startHour = event[j].getAttribute('startHour');
+                // Date de fin de réservation de salle :
+                let endHour = event[j].getAttribute('endHour');   
+                // Récupère les éléments fils de <resources> :
+                var childNodesResources = resources[j].children;
+                // Parcourir les balises <resources> :
+                for(i=0; i< childNodesResources.length; i++){
+                    // Parcourir les balises <resource> - tester s'il s'agit d'une ressource de type 'salle' :
+                    if(childNodesResources[i].getAttribute('category') == 'classroom'){
+                        // Récupérer le nom de la salle :
+                        occupiedRooms.push({startH : startHour, endH : endHour, room : childNodesResources[i].getAttribute('name')});
+                    }
+                }
+            }
+            
+            // Déconnexion de session ADE :
+            disconnection(sessionId);
 
-        // Pré-filtrage des salles :
-        var processedList = filter(occupiedRooms);
-        // console.log(processedList);
-
-        // Filtrage par épi :
-        var occupiedRooms = occupiedRoomsPerEpi(processedList);
-        console.log('OCCUPIED ROOMS:')
-        //console.log(occupiedRooms);
-        // utilisable en faisant occupiedRooms.epi1 etc.
-
-        //Affichage sur le Front
-        AffichageFront(occupiedRooms);
-
-        // Disconnection
-        disconnection(sessionId);
-        alert('FIN DE LA REQUETE, LE SITE EST PRET A ETRE UTILISE');
-    })
-    .catch(e => {
-        console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
-        return e;
-    });	
+            // Pré-filtrage des salles :
+            var processedList = filter(occupiedRooms);
+            // Filtrage par épi :
+            var sallesOccupées = occupiedRoomsPerEpi(processedList);
+            console.log(sallesOccupées);   // utilisable en faisant occupiedRooms.epi1 etc.// utilisable en faisant occupiedRooms.epi1 etc.
+            // Slot par défaut :
+            var default_slot = getDefaultSlot();
+            // Filtrages des salles libres : 
+            var sallesLib = getSallesLib(sallesOccupées, default_slot[0], default_slot[1]);      
+            console.log(sallesLib);
+        })
+        .catch(e => {
+            console.log(e);           // A logger avec events du pdf + avec heure etc.
+            return e;
+        });	
 }
-
 // Déconnexion de session ADE
 function disconnection(sessionId){
     const disconnect = baseURL + '?sessionId='+ sessionId +'&function=disconnect';
