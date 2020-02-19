@@ -18,7 +18,8 @@ LA TRAME DE SALLIB'
 - salle à préciser
 Répartition des salles par épi
 
---> On obtient donc une hashMap configurée de la façon suivante:
+On obtient donc une hashMap configurée de la façon suivante:
+
 
 '
 [
@@ -33,9 +34,11 @@ epi6:{...},
 autres:{amphis,113...}
 ]
 '
+
+
 --> getevents() appelle getDefaultSlots() qui renvoie le créneau horaire par défaut (h actuelle et h+2)
 
 --> getEvents() appelle getSallesLib(sallesOccupées, heureDébut, heureFin) qui renvoie une liste de hashMap configurée comme précédement mais qui contient les salles libres selon le créneau sélectionnée.
 
 6. On appelle ensuite AffichageFront(sallesLibres) qui prend en paramètre l'objet renvoyé par getSallesLib(). 
-- Pour chaque élement de la HashMap, elle appelle la fonction ajoutSalleH(arraySalles, classDivCree, attrDivCible) qui créée une div de class "classDivCree" dans la balise d'attribut "attrDivCible" et qui ajoute dans le div créé les noms de salles avec leurs horaires.
+Pour chaque élement de la HashMap, elle appelle la fonction ajoutSalleH(arraySalles, classDivCree, attrDivCible) qui créée une div de class "classDivCree" dans la balise d'attribut "attrDivCible" et qui ajoute dans le div créé les noms de salles avec leurs horaires.
