@@ -112,19 +112,15 @@ button:hover{
 	cursor: pointer;
 }
 
-/* .salles_libres div{
-	border: solid 2px red;
-	padding: 10px;
-} */
-
 .salles_libres_text{
 	cursor: pointer;
+	font-size: 22px;
 	margin: 10px;
 	transition: all 0.3s ease 0s;
 }
 
 .salles_libres_text:hover{
-	font-size: 20px;
+	font-size: 26px;
 	color: rgba(0, 136, 169, 1);
 }
 
