@@ -17,7 +17,10 @@ header{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 30px 10%;
+	padding: 0px 10%;
+	border-radius: 10px;
+	/* border: #edf0f1 2px solid; */
+	background-color: #151620;
 }
 
 li, a{
@@ -72,6 +75,7 @@ button:hover{
 /*************************************************************************
 ***************************** HORAIRE ***********************************/
 .HEURE{
+	margin-top: 50px;
 	font-size: 30px;
 }
 
@@ -110,6 +114,7 @@ button:hover{
 	margin: 40px 0px;
 	text-align: center;
 	cursor: pointer;
+	border-radius: 10px;
 }
 
 .salles_libres_text{
@@ -136,69 +141,71 @@ button:hover{
 
 /*************************************************************************
 ***************************** CARTE *************************************/
-
-.rue
-{
+.carte_esiee{
+	margin-top: 100px;
 	text-align: center;
-	margin-bottom: 10px;
-}
-
-.rue p
-{
-	font-size: 22px;
-}
-
-.salles_rue
-{
 	display: flex;
-	justify-content: space-around;
-	margin-bottom: 20px;
+	flex-direction: column;
+	font-size: 20px;
 }
 
-.salles_rue_amphis
-{
-	display: flex;
-	justify-content: space-around;
-}
-
-.rue:hover
-{
+.rue{
 	cursor: pointer;
+	transition: all 0.3s ease 0s;
 }
 
-.epis_containeur
-{
+.rue:hover{
+	font-size: 23px;
+	color: rgba(0, 136, 169, 1);
+}
+
+.epis_containeur{
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
+	margin: 30px 0px;
 }
 
-.epi
-{
-	width: 250px;
+.epi{
+	cursor: pointer;
 	text-align: center;
-}
-.epi p
-{
-	font-size: 22px;
+	width: 100px;
+	transition: all 0.3s ease 0s;
 }
 
-.epi:hover
-{
-	cursor: pointer; 
+.epi:hover{
+	font-size: 23px;
+	color: rgba(0, 136, 169, 1);
 }
+
 
 
 
 /*************************************************************************
 ***************************** FOOTER ************************************/
-footer
-{
-	margin-top: 50px;
-	border-top: 2px solid grey;
+footer{
+	margin-top: 100px;
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-footer strong
-{
-	font-size: 20px;
+.titre_footer{
+	border-bottom: solid 2px #edf0f1;
+}
+
+.devs{
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.devs a{
+	
+	margin: 0px 20px;
+	transition: all 0.3s ease 0s;
+}
+
+.devs a:hover{
+	color: rgba(0, 136, 169, 1);
 }

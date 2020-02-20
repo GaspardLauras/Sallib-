@@ -27,75 +27,93 @@ function AjoutSallecolones(arraySalles){
     $('div.salles').css('margin','10px');
 }
 
+function ajoutClique(){
+    $('div.salles_libres').click(function(){
+        $('div.salles_libres_containeur').toggle(300);//Permet de cacher et d'afficher les salles libres
+      //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+    $('div#epi_1').click(function(){
+        $('div.salles_libres_epi1').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+   
+
+    $('div#epi_2').click(function(){
+        $('div.salles_libres_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+
+    $('div#epi_3').click(function(){
+        $('div.salles_libres_epi3').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+
+    $('div#epi_4').click(function(){
+        $('div.salles_libres_epi4').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+
+    $('div#epi_5').click(function(){
+        $('div.salles_libres_epi5').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+
+    $('div#epi_6').click(function(){
+        $('div.salles_libres_epi6').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+
+
+    $('div.rue').click(function(){
+        $('div.salles_libres_rue').toggle(300);//Permet de cacher et d'afficher les salles libres
+        //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+    });
+}
+
 //Permet d'afficher sur le font les différentes salles
-
 function AffichageFront(rooms){
+    $('div.salles').remove();
+    $('div.salles_libres_epi1').remove();
+    $('div.salles_libres_epi2').remove();
+    $('div.salles_libres_epi3').remove();
+    $('div.salles_libres_epi4').remove();
+    $('div.salles_libres_epi5').remove();
+    $('div.salles_libres_epi6').remove();
+    $('div.salles_libres_rue').remove();
+
     rooms = rooms[0];
-        // console.log(occupiedRooms);
+    // console.log(occupiedRooms);
 
-        AjoutSallecolones(rooms.epi1);
-        AjoutSallecolones(rooms.epi2);
-        AjoutSallecolones(rooms.epi3);
-        AjoutSallecolones(rooms.epi4);
-        AjoutSallecolones(rooms.epi5);
-        AjoutSallecolones(rooms.epi6);
-        AjoutSallecolones(rooms.autres);
+    AjoutSallecolones(rooms.epi1);
+    AjoutSallecolones(rooms.epi2);
+    AjoutSallecolones(rooms.epi3);
+    AjoutSallecolones(rooms.epi4);
+    AjoutSallecolones(rooms.epi5);
+    AjoutSallecolones(rooms.epi6);
+    AjoutSallecolones(rooms.autres);
 
+    $('div.salles_libres_containeur').hide();//salles libres cachées par défaut
 
-        $('div.salles_libres_containeur').hide();//salles libres cachées par défaut
-        $('div.salles_libres').click(function(){
-          $('div.salles_libres_containeur').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi1, 'salles_libres_epi1', '#epi_1');
-        $('div.salles_libres_epi1').hide();//salles libres cachées par défaut
-        $('div#epi_1').click(function(){
-          $('div.salles_libres_epi1').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi2, 'salles_libres_epi2', '#epi_2');
-        $('div.salles_libres_epi2').hide();//salles libres cachées par défaut
-        $('div#epi_2').click(function(){
-          $('div.salles_libres_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi3, 'salles_libres_epi3', '#epi_3');
-        $('div.salles_libres_epi3').hide();//salles libres cachées par défaut
-        $('div#epi_3').click(function(){
-          $('div.salles_libres_epi3').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi4, 'salles_libres_epi4', '#epi_4');
-        $('div.salles_libres_epi4').hide();//salles libres cachées par défaut
-        $('div#epi_4').click(function(){
-          $('div.salles_libres_epi4').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi5, 'salles_libres_epi5', '#epi_5');
-        $('div.salles_libres_epi5').hide();//salles libres cachées par défaut
-        $('div#epi_5').click(function(){
-          $('div.salles_libres_epi5').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.epi6, 'salles_libres_epi6', '#epi_6');
-        $('div.salles_libres_epi6').hide();//salles libres cachées par défaut
-        $('div#epi_6').click(function(){
-          $('div.salles_libres_epi6').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
-
-        ajoutSallesH(rooms.autres, 'salles_libres_rue', '.rue');
-        $('div.salles_libres_rue').hide();//salles libres cachées par défaut
-        $('div.rue').click(function(){
-          $('div.salles_libres_rue').toggle(300);//Permet de cacher et d'afficher les salles libres
-          //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
-        });
+    ajoutSallesH(rooms.epi1, 'salles_libres_epi1', '#epi_1');
+    $('div.salles_libres_epi1').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.epi2, 'salles_libres_epi2', '#epi_2');
+    $('div.salles_libres_epi2').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.epi3, 'salles_libres_epi3', '#epi_3');
+    $('div.salles_libres_epi3').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.epi4, 'salles_libres_epi4', '#epi_4');
+    $('div.salles_libres_epi4').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.epi5, 'salles_libres_epi5', '#epi_5');
+    $('div.salles_libres_epi5').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.epi6, 'salles_libres_epi6', '#epi_6');
+    $('div.salles_libres_epi6').hide();//salles libres cachées par défaut
+    ajoutSallesH(rooms.autres, 'salles_libres_rue', '.rue');
+    $('div.salles_libres_rue').hide();//salles libres cachées par défaut 
 }
 
 
@@ -115,11 +133,9 @@ function getDate (currentD){
     return currentD.getFullYear()+ "." +((currentD.getMonth()+1)<10?"0":"") + (currentD.getMonth()+1) + "." + (currentD.getDate()<10?"0":"") + currentD.getDate();
 }	
 
-
 function getTime (currentD){
     return (currentD.getHours()<10?"0":"") + currentD.getHours()+ ":" + (currentD.getMinutes()<10?"0":"") + currentD.getMinutes()+ ":" + (currentD.getSeconds()<10?"0":"") + currentD.getSeconds();
 }
-
 
 // Journalisation des requêtes
 function setLog (functionId, params, duration, size){
@@ -317,13 +333,11 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
     return [{epi1 : occupiedRooms_epi1, epi2 : occupiedRooms_epi2, epi3 :  occupiedRooms_epi3, epi4 :  occupiedRooms_epi4, epi5 : occupiedRooms_epi5, epi6 :  occupiedRooms_epi6, autres : occupiedRooms_autres}];
 }
 
-
 // Transforme l'heure String au format "HH:MM" en valeur numérique de la forme HH,MM       
 function timeToNumeral(hourString){
     var split = hourString.split(":");
     return parseInt(split[0], 10) + parseInt((parseInt(split[1], 10))/6)/10; 
 }
-
 
 // Obtenir l'heure actuelle, créneau de 2h par défaut
 function getDefaultSlot(){   
@@ -343,9 +357,6 @@ function getDefaultSlot(){
 
     return [startHour, endHour];
 }
-
-
-
 
 // Filtrage des salles libres
 function getSallesLib(occupiedRoomsList, startHour, endHour) {         
@@ -635,6 +646,7 @@ function getEvents(sessionId){
 
             // Affichage des salles libres par épi :
             AffichageFront(sallesLib);
+            ajoutClique();
         })
         .catch(e => {
             console.log(e);           // A logger avec events du pdf + avec heure etc.
