@@ -10,8 +10,6 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   }
 
   //Mise en page des div de salles libres
-  $('div.'+classDivCree).css('height','30px');
-  $('div.'+classDivCree).css('width','200px');
   $('div.'+classDivCree).css('margin','0 auto');
   $('div.'+classDivCree).css('margin-bottom','10px');
 }

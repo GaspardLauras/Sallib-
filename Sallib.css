@@ -20,7 +20,7 @@ header{
 	padding: 0px 10%;
 	border-radius: 10px;
 	/* border: #edf0f1 2px solid; */
-	background-color: #151620;
+	/* background-color: #151620; */
 }
 
 li, a{
@@ -149,12 +149,12 @@ button:hover{
 	font-size: 20px;
 }
 
-.rue{
+.rue p{
 	cursor: pointer;
 	transition: all 0.3s ease 0s;
 }
 
-.rue:hover{
+.rue p:hover{
 	font-size: 23px;
 	color: rgba(0, 136, 169, 1);
 }
@@ -165,14 +165,14 @@ button:hover{
 	margin: 30px 0px;
 }
 
-.epi{
+.epi p{
 	cursor: pointer;
 	text-align: center;
 	width: 100px;
 	transition: all 0.3s ease 0s;
 }
 
-.epi:hover{
+.epi p:hover{
 	font-size: 23px;
 	color: rgba(0, 136, 169, 1);
 }
