@@ -587,9 +587,8 @@ function settingProject(sessionId, projectId){
 }
 
 // Récupérer les events de ADE 
-function getEvents(sessionId){
-    var date = '02/24/2020';
-    // var date = getCurrentDateForEvent();
+function getEvents(sessionId){  
+    var date = getCurrentDateForEvent(); // var date = '02/24/2020';
     const events = baseURL + '?sessionId='+ sessionId +'&function=getEvents&tree=true&date=' + date + '&detail=8';
     // Requête http :
     var startRequest3 = new Date().getTime(); 
