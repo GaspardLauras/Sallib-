@@ -337,6 +337,18 @@ function timeToNumeral(hourString){
     return parseInt(split[0], 10) + parseInt((parseInt(split[1], 10))/6)/10; 
 }
 
+// Filtre les salles selon leur type -> A TESTER quand on aura l'attribut "type"
+function classifyRoomTypes(roomsList){
+  // Tri des amphis :
+  var amphiList = roomsList.filter(obj => { return obj.type === 'amphi' });
+  // Tri des salles info :
+  var infoList = roomsList.filter(obj => { return obj.type === 'info' });
+  // Tri des salles d'elec :
+  var elecList = roomsList.filter(obj => { return obj.type === 'elec' }); 
+  // Renvoyer les trois listes :
+  return [{amphis : amphiList, info : infoList, elec : elecList}];
+}
+
 // Obtenir l'heure actuelle, créneau de 2h par défaut
 function getDefaultSlot(){   
     // Objet temporel :
