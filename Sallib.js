@@ -164,7 +164,7 @@ function setErrorLog (functionId, errorMessage){
     return logger + errorMessage;  
 }
 
-// Transmission des logs au fichier Drive (Google Doc) de sallelib@gmail.com
+// Transmission des logs au fichier Drive (Google Doc) de sallelib@gmail.com via Webapp Google script
 function sendLog (logMessage){
      const url = 'https://script.google.com/macros/s/AKfycbzKwNZ7Vb4epwKv2rneDLMzGyZqPsHzN7HC2v-x8W3Cn2chEjg/exec?' + 'log=' + logMessage;
      const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
