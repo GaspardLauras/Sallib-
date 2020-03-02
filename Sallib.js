@@ -156,7 +156,7 @@ function setLog (functionId, params, duration, size){
 }
 
 // Journalisation des erreurs
-function setErrorLog (functionId, errorMessage, duration){
+function setErrorLog (functionId, errorMessage){
     // Initialisation objet temporel :
     let currentDate = new Date();  
     // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
@@ -164,9 +164,20 @@ function setErrorLog (functionId, errorMessage, duration){
     return logger + errorMessage;  
 }
 
-
-
-
+// Transmission des logs au fichier Drive (Google Doc) de sallelib@gmail.com
+function sendLog (logMessage){
+     const url = 'https://script.google.com/macros/s/AKfycbzKwNZ7Vb4epwKv2rneDLMzGyZqPsHzN7HC2v-x8W3Cn2chEjg/exec?' + 'log=' + logMessage;
+     const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
+     fetch(proxyUrl + url)
+            .then(response=>response.text()) 
+            .then(data => {	
+                console.log(data);
+            })
+            .catch(e => {
+                console.log(e);
+                return e;
+            });	
+}
 
 
 
@@ -548,7 +559,10 @@ function getProjectId(sessionId){
         // Récupération de projectId :
         let project = xmlResponse.getElementsByTagName('project');
         let projId = project[0].getAttribute('id');
-        console.log(setLog('get projects', [['Session ID', sessionId], ['detail', 2]], requestDuration6, data.length));
+
+        // Logger dans fichier Drive Sallib' :
+        var log = setLog('get projects', [['Session ID', sessionId], ['detail', 2]], requestDuration6, data.length);
+        sendLog(log);
         
         // Set project :
         settingProject(sessionId, projId);
@@ -583,7 +597,9 @@ function settingProject(sessionId, projectId){
             console.log(setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2));
         }
         else {
-            console.log(setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2,  data.length));  
+            // Logger dans fichier Drive Sallib' :
+            var log = setLog('set project', [['Session ID', sessionIdent], ['Project ID', projectIdent]], requestDuration2,  data.length);  
+            sendLog(log);
         }
 
         // Pour mettre à jour la liste des salles (indicateur des salles non-traitées) :
@@ -614,7 +630,11 @@ function getEvents(sessionId){
             // console.log(xmlResponse);
             var endRequest3 = new Date().getTime();
             var requestDuration3 = endRequest3 - startRequest3;
-            console.log(setLog('get events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length)); 
+
+            // Logger dans fichier Drive Sallib' :
+            var log = setLog('get events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length); 
+            sendLog(log);
+
             // Récupération des balises <events> :
             let event  = xmlResponse.getElementsByTagName('event');
             // Récupération des balises inférieures <resources> :
@@ -683,7 +703,9 @@ function disconnection(sessionId){
             console.log(setErrorLog('disconnect', 'ERROR "session Id" is undefined !', requestDuration4));
         }
         else {
-            console.log(setLog('disconnect', [['Session ID', sessionIdent]], requestDuration4, data.length));  
+            // Logger dans fichier Drive Sallib' :
+            var log = setLog('disconnect', [['Session ID', sessionIdent]], requestDuration4, data.length);  
+            sendLog(log);
         }
     })
     .catch(e => {
@@ -707,7 +729,11 @@ function getClassroomsTot(sessionId){
         // console.log(xmlResponse);
         var endRequest5 = new Date().getTime();
         var requestDuration5 = endRequest5 - startRequest5;      
-        console.log(setLog('get resources', [['Session ID', sessionId], ['detail', 2], ['category', 'classroom']], requestDuration5, data.length)); 
+        
+        // Logger dans fichier Drive Sallib' :
+        var log = setLog('get resources', [['Session ID', sessionId], ['detail', 2], ['category', 'classroom']], requestDuration5, data.length); 
+        sendLog(log);
+
         // Récupération des balises <room> :
         var rooms  = xmlResponse.getElementsByTagName('room');
         // Liste contenant les noms des salles récupérées :
@@ -745,7 +771,10 @@ function ADEconnect (){
             // Log :
             var endRequest = new Date().getTime();
             var requestDuration = endRequest - startRequest;
-            console.log(setLog('connect', [['Session ID', sessionId]], requestDuration, data.length));
+
+            // Logger dans fichier Drive Sallib' :
+            var log = setLog('connect', [['Session ID', sessionId]], requestDuration, data.length);
+            sendLog(log);
 
             // Get Project Id:
             getProjectId(sessionId);
