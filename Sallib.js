@@ -289,55 +289,55 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
 
     // Filtrage par EPI :
     occupiedRoomsList.forEach((item, index) => {
-    // Filtrage EPI 1 :
-    for(i=0; i < EPI_1.length; i++){
-        if(item.room == EPI_1[i]){
-        occupiedRooms_epi1.push(item);
-        break;
+        // Filtrage EPI 1 :
+        for(i=0; i < EPI_1.length; i++){
+            if(item.room == EPI_1[i]){
+                occupiedRooms_epi1.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 2 :
-    for(i=0; i < EPI_2.length; i++){
-        if(item.room == EPI_2[i]){
-        occupiedRooms_epi2.push(item);
-        break;
+        // Filtrage EPI 2 :
+        for(i=0; i < EPI_2.length; i++){
+            if(item.room == EPI_2[i]){
+                occupiedRooms_epi2.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 3 :
-    for(i=0; i < EPI_3.length; i++){
-        if(item.room == EPI_3[i]){
-        occupiedRooms_epi3.push(item);
-        break;
+        // Filtrage EPI 3 :
+        for(i=0; i < EPI_3.length; i++){
+            if(item.room == EPI_3[i]){
+                occupiedRooms_epi3.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 4 :
-    for(i=0; i < EPI_4.length; i++){
-        if(item.room == EPI_4[i]){
-        occupiedRooms_epi4.push(item);
-        break;
+        // Filtrage EPI 4 :
+        for(i=0; i < EPI_4.length; i++){
+            if(item.room == EPI_4[i]){
+                occupiedRooms_epi4.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 5 :
-    for(i=0; i < EPI_5.length; i++){
-        if(item.room == EPI_5[i]){
-        occupiedRooms_epi5.push(item);
-        break;
+        // Filtrage EPI 5 :
+        for(i=0; i < EPI_5.length; i++){
+            if(item.room == EPI_5[i]){
+                occupiedRooms_epi5.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 6 :
-    for(i=0; i < EPI_6.length; i++){
-        if(item.room == EPI_6[i]){
-        occupiedRooms_epi6.push(item);
-        break;
+        // Filtrage EPI 6 :
+        for(i=0; i < EPI_6.length; i++){
+            if(item.room == EPI_6[i]){
+                occupiedRooms_epi6.push(item);
+                break;
+            }
         }
-    }
-    // Filtrage EPI 1 :
-    for(i=0; i < AUTRES.length; i++){
-        if(item.room == AUTRES[i]){
-        occupiedRooms_autres.push(item);
-        break;
+        // Filtrage EPI 1 :
+        for(i=0; i < AUTRES.length; i++){
+            if(item.room == AUTRES[i]){
+                occupiedRooms_autres.push(item);
+                break;
+            }
         }
-    }
     })
 
     // Retourner les différentes listes :
