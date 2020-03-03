@@ -8,9 +8,7 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
         //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
         for(var i = 0; i < arraySalles.length; i++) { 
             // Affichage des salles en colonne :
-            $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
-            arraySalles[i]+
-            '</div>');
+            $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+ arraySalles[i] +'</div>');
         }
     }
 
