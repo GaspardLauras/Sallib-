@@ -256,15 +256,15 @@ function filter(roomsFrame){
         let isToSuppr = 0;
         for(let i=0; i<Filter_default.length; i++){
         // Appliquer filtre sur chaque salle récupérée :
-        if(item.room == Filter_default[i]){
-            isToSuppr = 1;
-            break;
+            if(item.room == Filter_default[i]){
+                isToSuppr = 1;
+                break;
+            }
         }
-
-        }
+        
         // Item ajouté à la liste :
         if(isToSuppr == 0){
-        filter1.push(item);
+            filter1.push(item);
         }
         /*
         // Item n'apparaissant pas dans la liste car non désiré :
