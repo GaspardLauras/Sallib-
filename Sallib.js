@@ -1,12 +1,13 @@
 //Permet d'ajouter les salles d'une liste
 function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
-    //console.log('____');
-    //console.log(arraySalles[i]);
-    //console.log(arraySalles[i].room+' : '+arraySalles[i].startH+'/'+arraySalles[i].endH)
-    $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
-      arraySalles[i]+
-      '</div>');
+    if(arraySalles.length == 0){
+    	$('div'+attrDivCible).append('<div class='+ classDivCree +'> AUCUNE SALLE DISPONIBLE </div>');
+    }else{
+    	$('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
+      	arraySalles[i]+
+      	'</div>');
+    }
   }
 
   //Mise en page des div de salles libres 
