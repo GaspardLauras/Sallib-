@@ -331,7 +331,7 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
                 break;
             }
         }
-        // Filtrage EPI 1 :
+        // Filtrage AUTRES :
         for(i=0; i < AUTRES.length; i++){
             if(item.room == AUTRES[i]){
                 occupiedRooms_autres.push(item);
