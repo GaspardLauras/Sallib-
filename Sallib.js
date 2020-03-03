@@ -1,14 +1,18 @@
 //Permet d'ajouter les salles d'une liste
 function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
-  for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
+    // Si aucune salle de l'épi n'est libre sur le créneau :
     if(arraySalles.length == 0){
-    	$('div'+attrDivCible).append('<div class='+ classDivCree +'> AUCUNE SALLE DISPONIBLE </div>');
-    }else{
-    	$('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
-      	arraySalles[i]+
-      	'</div>');
+        $('div'+attrDivCible).append('<div class='+ classDivCree +'> AUCUNE SALLE DISPONIBLE </div>');
     }
-  }
+    else {
+        //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
+        for(var i = 0; i < arraySalles.length; i++) { 
+            // Affichage des salles en colonne :
+            $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+
+            arraySalles[i]+
+            '</div>');
+        }
+    }
 
   //Mise en page des div de salles libres 
   $('div.'+classDivCree).css('margin','0 auto');
@@ -87,7 +91,6 @@ function AffichageFront(rooms){
     $('div.salles_libres_rue').remove();
 
     rooms = rooms[0];
-    // console.log(occupiedRooms);
 
     AjoutSallecolones(rooms.epi1);
     AjoutSallecolones(rooms.epi2);
@@ -98,7 +101,7 @@ function AffichageFront(rooms){
     AjoutSallecolones(rooms.autres);
 
     $('div.salles_libres_containeur').hide();//salles libres cachées par défaut
-
+    
     ajoutSallesH(rooms.epi1, 'salles_libres_epi1', '#epi_1');
     $('div.salles_libres_epi1').hide();//salles libres cachées par défaut
     ajoutSallesH(rooms.epi2, 'salles_libres_epi2', '#epi_2');
