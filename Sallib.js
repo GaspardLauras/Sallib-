@@ -853,11 +853,15 @@ var horaire_fin = document.querySelector('input#fin');
 
 var heure = now.getHours();
 var minutes = now.getMinutes();
+
 if(minutes<10)
-  minutes = '0'+minutes;
+    minutes = '0' + minutes;
+
+if(heure<10)
+    heure = '0' + heure;    
 
 horaire_debut.value = heure+':'+minutes;
-horaire_fin.value = heure+2+':'+minutes;
+horaire_fin.value = parseInt(heure)+2+':'+minutes;
 
 horaire_debut.addEventListener('input',function(){
   // console.log(horaire_debut.value);
