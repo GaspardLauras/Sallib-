@@ -845,7 +845,11 @@ ADEconnect();
 
 
 
-
+/*
+====================================================================================================================================
+                            Paramétrage de la recherche par créneau
+====================================================================================================================================
+*/
 //Test pour le bouton et les inputs
 var now = new Date();
 var horaire_debut = document.querySelector('input#debut');
@@ -858,41 +862,54 @@ if(heure<10)
     heure = '0' + heure;    
 
 var nextHour = parseInt(heure)+2;
+var nextMinutes = minutes;
 if(nextHour > 23) {
     nextHour = 0;
-    minutes=0;
+    nextMinutes=0;
 }
 
 if(nextHour<10)
     nextHour = '0' + nextHour;    
 
+if(nextMinutes<10)
+    nextMinutes = '0' + nextMinutes;
+
 if(minutes<10)
     minutes = '0' + minutes;
 
+
 horaire_debut.value = heure +':'+ minutes;
-horaire_fin.value = nextHour +':'+ minutes;
+horaire_fin.value = nextHour +':'+ nextMinutes;
 
-
-
+// Extrait les heures et minutes du format HH:MM :
 function parseHour(timeValue){
     var hora = timeValue.substring(0,2);
     var minutos = timeValue.substring(3,5);
     return [{h : hora, m : minutos}];
 }
 
+horaire_debut.addEventListener('input',function(e){
+    // Heure actuelle :
+    var time = new Date();
+    var h = time.getHours(); 
+    var min = time.getMinutes();
 
+    
+    if (e.target.valueAsDate == null){
+        if(h<10)
+            h = '0' + h;  
+        if(min<10)
+            min = '0' + min;  
+        horaire_debut.value = h +':'+ min;
+        horaire_fin.value = horaire_debut.value;
+    }
+    
 
-horaire_debut.addEventListener('input',function(){
     // Heure choisie :
     var choice = parseHour(horaire_debut.value);
     choice = choice[0];
     var choiceH = choice.h;
     var choiceMin = choice.m;
-
-    // Heure actuelle :
-    var time = new Date();
-    var h = time.getHours(); 
-    var min = time.getMinutes();
 
     // Empêcher que l'heure de début soit antérieure à l'heure actuelle :
     if(choiceH < h) {
@@ -900,7 +917,6 @@ horaire_debut.addEventListener('input',function(){
         if(choiceH<10)
             choiceH = '0' + choiceH; 
     }
-
     else if ((choiceH == h) && (choiceMin < min)) {
         choiceMin = min;                    
         if(choiceMin<10)
@@ -912,20 +928,36 @@ horaire_debut.addEventListener('input',function(){
     choice2 = choice2[0];
     var choiceH2 = choice2.h;
     var choiceMin2 = choice2.m;   
-    if(choiceH2 < choiceH) {
-        choiceH2 = choiceH;                      
-        horaire_fin.value = choiceH2 +':'+ choiceMin2;    
+    if((choiceH2 < choiceH)  && (choiceH2 != '00')) {
+        choiceH2 = choiceH;                       
+        horaire_fin.value = choiceH2 +':'+ choiceMin2;           
+        console.log('a');
     }
     else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
         choiceMin2 = choiceMin;                    
-        horaire_fin.value = choiceH2 +':'+ choiceMin2;    
+        horaire_fin.value = choiceH2 +':'+ choiceMin2;              
+        console.log('b');
     }
 
     // Valeur de début après traitement :
     horaire_debut.value = choiceH +':'+ choiceMin;    
 });
 
-horaire_fin.addEventListener('input',function(){
+horaire_fin.addEventListener('input',function(e){
+    // Heure actuelle :
+    var time = new Date();
+    var h = time.getHours(); 
+    var min = time.getMinutes();
+
+    // En cas d'appui sur les touches 'backspace' et 'delete' :
+    if (e.target.valueAsDate == null){
+        if(h<10)
+            h = '0' + h;  
+        if(min<10)
+            min = '0' + min;  
+        horaire_fin.value = horaire_debut.value;
+    } 
+    
     // Heure choisie :
     var choice2 = parseHour(horaire_fin.value);
     choice2 = choice2[0];
@@ -937,13 +969,13 @@ horaire_fin.addEventListener('input',function(){
     choice = choice[0];
     var choiceH = choice.h;
     var choiceMin = choice.m;
-    
+    console.log(choiceH2);
     // Empêcher que l'heure de fin soit antérieure à l'heure de début :
-    if(choiceH2 < choiceH) {
-        choiceH2 = choiceH;                             
+    if((choiceH2 < choiceH) && (choiceH2 != '00')) {
+        choiceH2 = choiceH;                                                               
     }
     else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
-        choiceMin2 = choiceMin;                    
+        choiceMin2 = choiceMin;                                         
     }
     
     // Valeur de fin après traitement :
@@ -951,7 +983,7 @@ horaire_fin.addEventListener('input',function(){
 });
 
 $('button.bouton_recherche').click(function(){
-    console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);     // BLOQUER SI UNDEFINED UN DES DEUX -> MESSAGE
+    console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
     var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value);   
     AffichageFront(sallib);
 });
