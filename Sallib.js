@@ -854,25 +854,107 @@ var horaire_fin = document.querySelector('input#fin');
 var heure = now.getHours();
 var minutes = now.getMinutes();
 
-if(minutes<10)
-    minutes = '0' + minutes;
-
 if(heure<10)
     heure = '0' + heure;    
 
-horaire_debut.value = heure+':'+minutes;
-horaire_fin.value = parseInt(heure)+2+':'+minutes;
+var nextHour = parseInt(heure)+2;
+if(nextHour > 23) {
+    nextHour = 0;
+    minutes=0;
+}
+
+if(nextHour<10)
+    nextHour = '0' + nextHour;    
+
+if(minutes<10)
+    minutes = '0' + minutes;
+
+horaire_debut.value = heure +':'+ minutes;
+horaire_fin.value = nextHour +':'+ minutes;
+
+
+
+function parseHour(timeValue){
+    var hora = timeValue.substring(0,2);
+    var minutos = timeValue.substring(3,5);
+    return [{h : hora, m : minutos}];
+}
+
+
 
 horaire_debut.addEventListener('input',function(){
-  // console.log(horaire_debut.value);
+    // Heure choisie :
+    var choice = parseHour(horaire_debut.value);
+    choice = choice[0];
+    var choiceH = choice.h;
+    var choiceMin = choice.m;
+
+    // Heure actuelle :
+    var time = new Date();
+    var h = time.getHours(); 
+    var min = time.getMinutes();
+
+    // Empêcher que l'heure de début soit antérieure à l'heure actuelle :
+    if(choiceH < h) {
+        choiceH = h;
+        if(choiceH<10)
+            choiceH = '0' + choiceH; 
+    }
+
+    else if ((choiceH == h) && (choiceMin < min)) {
+        choiceMin = min;                    
+        if(choiceMin<10)
+            choiceMin = '0' + choiceMin;
+    }
+
+    // Empêcher que l'heure de fin soit antérieure à l'heure de début :
+    var choice2 = parseHour(horaire_fin.value); // Heure de fin 
+    choice2 = choice2[0];
+    var choiceH2 = choice2.h;
+    var choiceMin2 = choice2.m;   
+    if(choiceH2 < choiceH) {
+        choiceH2 = choiceH;                      
+        horaire_fin.value = choiceH2 +':'+ choiceMin2;    
+    }
+    else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
+        choiceMin2 = choiceMin;                    
+        horaire_fin.value = choiceH2 +':'+ choiceMin2;    
+    }
+
+    // Valeur de début après traitement :
+    horaire_debut.value = choiceH +':'+ choiceMin;    
 });
 
 horaire_fin.addEventListener('input',function(){
-  // console.log(horaire_fin.value);
+    // Heure choisie :
+    var choice2 = parseHour(horaire_fin.value);
+    choice2 = choice2[0];
+    var choiceH2 = choice2.h;
+    var choiceMin2 = choice2.m;   
+
+    // Heure de début :
+    var choice = parseHour(horaire_debut.value);
+    choice = choice[0];
+    var choiceH = choice.h;
+    var choiceMin = choice.m;
+    
+    // Empêcher que l'heure de fin soit antérieure à l'heure de début :
+    if(choiceH2 < choiceH) {
+        choiceH2 = choiceH;                             
+    }
+    else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
+        choiceMin2 = choiceMin;                    
+    }
+    
+    // Valeur de fin après traitement :
+    horaire_fin.value = choiceH2 +':'+ choiceMin2;    
 });
 
 $('button.bouton_recherche').click(function(){
-  console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
-  var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value);   
-  AffichageFront(sallib);
+    console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);     // BLOQUER SI UNDEFINED UN DES DEUX -> MESSAGE
+    var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value);   
+    AffichageFront(sallib);
 });
+
+
+// TESTER SALLES LIBRES EN VERIFIANT SUR PLANIF ESIEE !
