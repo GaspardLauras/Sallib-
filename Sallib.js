@@ -893,7 +893,6 @@ horaire_debut.addEventListener('input',function(e){
     var time = new Date();
     var h = time.getHours(); 
     var min = time.getMinutes();
-
     
     if (e.target.valueAsDate == null){
         if(h<10)
@@ -904,7 +903,6 @@ horaire_debut.addEventListener('input',function(e){
         horaire_fin.value = horaire_debut.value;
     }
     
-
     // Heure choisie :
     var choice = parseHour(horaire_debut.value);
     choice = choice[0];
@@ -931,12 +929,10 @@ horaire_debut.addEventListener('input',function(e){
     if((choiceH2 < choiceH)  && (choiceH2 != '00')) {
         choiceH2 = choiceH;                       
         horaire_fin.value = choiceH2 +':'+ choiceMin2;           
-        console.log('a');
     }
     else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
         choiceMin2 = choiceMin;                    
         horaire_fin.value = choiceH2 +':'+ choiceMin2;              
-        console.log('b');
     }
 
     // Valeur de début après traitement :
@@ -969,7 +965,7 @@ horaire_fin.addEventListener('input',function(e){
     choice = choice[0];
     var choiceH = choice.h;
     var choiceMin = choice.m;
-    console.log(choiceH2);
+
     // Empêcher que l'heure de fin soit antérieure à l'heure de début :
     if((choiceH2 < choiceH) && (choiceH2 != '00')) {
         choiceH2 = choiceH;                                                               
