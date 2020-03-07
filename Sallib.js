@@ -858,14 +858,18 @@ var horaire_fin = document.querySelector('input#fin');
 var heure = now.getHours();
 var minutes = now.getMinutes();
 
+var nextHour = parseInt(heure)+2;
+var nextMinutes = minutes;
+
 if(heure<10)
     heure = '0' + heure;    
 
-var nextHour = parseInt(heure)+2;
-var nextMinutes = minutes;
-if(nextHour > 23) {
-    nextHour = 0;
-    nextMinutes=0;
+if(minutes<10)
+    minutes = '0' + minutes;
+
+if(heure >= 22) {
+    nextHour = 23;
+    nextMinutes = 59;
 }
 
 if(nextHour<10)
@@ -873,10 +877,6 @@ if(nextHour<10)
 
 if(nextMinutes<10)
     nextMinutes = '0' + nextMinutes;
-
-if(minutes<10)
-    minutes = '0' + minutes;
-
 
 horaire_debut.value = heure +':'+ minutes;
 horaire_fin.value = nextHour +':'+ nextMinutes;
@@ -902,80 +902,68 @@ horaire_debut.addEventListener('input',function(e){
         horaire_debut.value = h +':'+ min;
         horaire_fin.value = horaire_debut.value;
     }
-    
-    // Heure choisie :
-    var choice = parseHour(horaire_debut.value);
-    choice = choice[0];
-    var choiceH = choice.h;
-    var choiceMin = choice.m;
+    else {
+        // Heure choisie :
+        var choice = parseHour(horaire_debut.value);
+        choice = choice[0];
+        var choiceH = choice.h;
+        var choiceMin = choice.m;
 
-    // Empêcher que l'heure de début soit antérieure à l'heure actuelle :
-    if(choiceH < h) {
-        choiceH = h;
-        if(choiceH<10)
-            choiceH = '0' + choiceH; 
-    }
-    else if ((choiceH == h) && (choiceMin < min)) {
-        choiceMin = min;                    
-        if(choiceMin<10)
-            choiceMin = '0' + choiceMin;
-    }
+        // Empêcher que l'heure de début soit antérieure à l'heure actuelle :
+        if(choiceH < h) {
+            choiceH = h;
+        }
+        else if ((choiceH == h) && (choiceMin < min)) {
+            choiceMin = min;                    
+        }
 
-    // Empêcher que l'heure de fin soit antérieure à l'heure de début :
-    var choice2 = parseHour(horaire_fin.value); // Heure de fin 
-    choice2 = choice2[0];
-    var choiceH2 = choice2.h;
-    var choiceMin2 = choice2.m;   
-    if((choiceH2 < choiceH)  && (choiceH2 != '00')) {
-        choiceH2 = choiceH;                       
-        horaire_fin.value = choiceH2 +':'+ choiceMin2;           
-    }
-    else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
-        choiceMin2 = choiceMin;                    
-        horaire_fin.value = choiceH2 +':'+ choiceMin2;              
-    }
+        // Empêcher que l'heure de fin soit antérieure à l'heure de début :
+        var choice2 = parseHour(horaire_fin.value); // Heure de fin 
+        choice2 = choice2[0];
+        var choiceH2 = choice2.h;
+        var choiceMin2 = choice2.m;  
 
-    // Valeur de début après traitement :
-    horaire_debut.value = choiceH +':'+ choiceMin;    
+        if(choiceH2 < choiceH) {
+            choiceH2 = choiceH;                       
+            horaire_fin.value = choiceH2 +':'+ choiceMin2;           
+        }
+        else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
+            choiceMin2 = choiceMin;                    
+            horaire_fin.value = choiceH2 +':'+ choiceMin2;              
+        }
+
+        // Valeur de début après traitement :
+        horaire_debut.value = choiceH +':'+ choiceMin;  
+    }  
 });
 
 horaire_fin.addEventListener('input',function(e){
-    // Heure actuelle :
-    var time = new Date();
-    var h = time.getHours(); 
-    var min = time.getMinutes();
-
     // En cas d'appui sur les touches 'backspace' et 'delete' :
     if (e.target.valueAsDate == null){
-        if(h<10)
-            h = '0' + h;  
-        if(min<10)
-            min = '0' + min;  
         horaire_fin.value = horaire_debut.value;
     } 
-    
-    // Heure choisie :
-    var choice2 = parseHour(horaire_fin.value);
-    choice2 = choice2[0];
-    var choiceH2 = choice2.h;
-    var choiceMin2 = choice2.m;   
+    else {
+        // Heure choisie :
+        var choice2 = parseHour(horaire_fin.value);
+        choice2 = choice2[0];
+        var choiceH2 = choice2.h;
+        var choiceMin2 = choice2.m;   
 
-    // Heure de début :
-    var choice = parseHour(horaire_debut.value);
-    choice = choice[0];
-    var choiceH = choice.h;
-    var choiceMin = choice.m;
+        // Heure de début :
+        var choice = parseHour(horaire_debut.value);
+        choice = choice[0];
+        var choiceH = choice.h;
+        var choiceMin = choice.m;
 
-    // Empêcher que l'heure de fin soit antérieure à l'heure de début :
-    if((choiceH2 < choiceH) && (choiceH2 != '00')) {
-        choiceH2 = choiceH;                                                               
-    }
-    else if ((choiceH2 == choiceH) && (choiceMin2 < choiceMin)) {
-        choiceMin2 = choiceMin;                                         
-    }
-    
-    // Valeur de fin après traitement :
-    horaire_fin.value = choiceH2 +':'+ choiceMin2;    
+        // Empêcher que l'heure de fin soit antérieure à celle de début :
+        if((choiceH2 < choiceH) || (choiceH2 <= choiceH && (choiceMin2 < choiceMin))) {    
+            choiceH2 = choiceH;   
+            choiceMin2 = choiceMin;                                                          
+        }
+        
+        // Valeur de fin après traitement :
+        horaire_fin.value = choiceH2 +':'+ choiceMin2;   
+    }  
 });
 
 $('button.bouton_recherche').click(function(){
