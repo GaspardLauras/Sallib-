@@ -150,15 +150,23 @@ input{
 	margin-left: 5px;
 	margin-right: 5px;
 	text-align: center;
-	height: 200px;
-	transition: all 0.3s ease 0s;
 	background-color: #494B51;
-	cursor: pointer;
-
 }
 
-.rue:hover{
+.rue p:hover{
 	color: rgba(0, 136, 169, 1);
+}
+
+.rue p{
+	padding-bottom: 50px;
+	margin-bottom: 0px;
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+}
+
+.salles_libres_rue:last-of-type{
+	margin-bottom: 0px;
+	padding-bottom: 20px;
 }
 
 .epis_containeur{
@@ -183,12 +191,9 @@ input{
 .epi p{
 	margin-top: 400px;
 	transform: rotate(-90deg);
-	
-	
 }
 
 .epi:hover{
-	transform: rotate(-0deg);
 	color: rgba(0, 136, 169, 1);
 }
 
