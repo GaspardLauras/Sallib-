@@ -8,7 +8,7 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
         //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
         for(var i = 0; i < arraySalles.length; i++) { 
             // Affichage des salles en colonne :
-            $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+ arraySalles[i] +'</div>');
+            $('div'+attrDivCible).append('<div class='+ classDivCree +'>'+ arraySalles[i].name +'</div>');
         }
     }
 
@@ -17,6 +17,7 @@ function ajoutSallesH(arraySalles, classDivCree, attrDivCible){
   $('div.'+classDivCree).css('margin-bottom','10px');
 }
 
+/*
 var colone = 0;
 function AjoutSallecolones(arraySalles){
     for(var i = 0; i < arraySalles.length; i++){ //ajout de toutes les 'salles' dans la balise '<div class='salles_libres'/>'
@@ -27,6 +28,7 @@ function AjoutSallecolones(arraySalles){
 
     $('div.salles').css('margin','10px');
 }
+*/
 
 function ajoutClique(){
     $('div.salles_libres').click(function(){
@@ -89,14 +91,6 @@ function AffichageFront(rooms){
     $('div.salles_libres_rue').remove();
 
     rooms = rooms[0];
-
-    AjoutSallecolones(rooms.epi1);
-    AjoutSallecolones(rooms.epi2);
-    AjoutSallecolones(rooms.epi3);
-    AjoutSallecolones(rooms.epi4);
-    AjoutSallecolones(rooms.epi5);
-    AjoutSallecolones(rooms.epi6);
-    AjoutSallecolones(rooms.autres);
 
     $('div.salles_libres_containeur').hide();//salles libres cachées par défaut
     
@@ -162,8 +156,8 @@ function setErrorLog (functionId, errorMessage){
     // Initialisation objet temporel :
     let currentDate = new Date();  
     // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
-    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + "Function {" + functionId + "} | "; 
-    return logger + errorMessage;  
+    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + errorMessage + " | Function {" + functionId + "}"; 
+    return logger;  
 }
 
 // Transmission des logs au fichier Drive (Google Doc) de sallelib@gmail.com via Webapp Google script
@@ -215,25 +209,24 @@ function getCurrentDateForEvent(){
 function updateClassroomsList(sessionId, dataRooms){
     // Liste des salles par défaut :
     var previousRoomsList = EPI_1.concat(EPI_2).concat(EPI_3).concat(EPI_4).concat(EPI_5).concat(EPI_6).concat(AUTRES);
-    // console.log(previousRoomsList.length);
 
     // Nouvelle liste des salles après filtrage :
     var roomsList = [];
-
+    
     dataRooms.forEach((item, index) => {
     let isNew = 1;
     // Filtrage par indésirables :
     for(i=0; i < Filter_default.length; i++){
-        if(item == Filter_default[i]){
-        isNew = 0;
-        break;
+        if(item == Filter_default[i].name){
+            isNew = 0;
+            break;
         }
     }
     // Filtrage par les salles valides actuelles :
     for(i=0; i < previousRoomsList.length; i++){
-        if(item == previousRoomsList[i]){
-        isNew = 0;
-        break;
+        if(item == previousRoomsList[i].name){
+            isNew = 0;
+            break;
         }
     }
     // Si l'élément est nouveau :
@@ -256,22 +249,16 @@ function filter(roomsFrame){
         let isToSuppr = 0;
         for(let i=0; i<Filter_default.length; i++){
         // Appliquer filtre sur chaque salle récupérée :
-            if(item.room == Filter_default[i]){
+            if(item.room == Filter_default[i].name){
                 isToSuppr = 1;
                 break;
             }
         }
-        
+
         // Item ajouté à la liste :
         if(isToSuppr == 0){
             filter1.push(item);
         }
-        /*
-        // Item n'apparaissant pas dans la liste car non désiré :
-        else {
-            console.log(item);
-        }
-        */
     })
     return filter1;
 }
@@ -286,54 +273,55 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
     var occupiedRooms_epi5 = [];
     var occupiedRooms_epi6 = [];
     var occupiedRooms_autres = [];
-
+    
     // Filtrage par EPI :
     occupiedRoomsList.forEach((item, index) => {
         // Filtrage EPI 1 :
         for(i=0; i < EPI_1.length; i++){
-            if(item.room == EPI_1[i]){
+            if(item.room == EPI_1[i].name){
                 occupiedRooms_epi1.push(item);
                 break;
             }
         }
         // Filtrage EPI 2 :
         for(i=0; i < EPI_2.length; i++){
-            if(item.room == EPI_2[i]){
+            if(item.room == EPI_2[i].name){
                 occupiedRooms_epi2.push(item);
                 break;
             }
         }
         // Filtrage EPI 3 :
         for(i=0; i < EPI_3.length; i++){
-            if(item.room == EPI_3[i]){
+            if(item.room == EPI_3[i].name){
                 occupiedRooms_epi3.push(item);
                 break;
             }
         }
         // Filtrage EPI 4 :
         for(i=0; i < EPI_4.length; i++){
-            if(item.room == EPI_4[i]){
+            if(item.room == EPI_4[i].name){
                 occupiedRooms_epi4.push(item);
                 break;
             }
         }
         // Filtrage EPI 5 :
         for(i=0; i < EPI_5.length; i++){
-            if(item.room == EPI_5[i]){
+            if(item.room == EPI_5[i].name){
                 occupiedRooms_epi5.push(item);
                 break;
             }
         }
+        
         // Filtrage EPI 6 :
         for(i=0; i < EPI_6.length; i++){
-            if(item.room == EPI_6[i]){
+            if(item.room == EPI_6[i].name){
                 occupiedRooms_epi6.push(item);
                 break;
             }
         }
         // Filtrage AUTRES :
         for(i=0; i < AUTRES.length; i++){
-            if(item.room == AUTRES[i]){
+            if(item.room == AUTRES[i].name){
                 occupiedRooms_autres.push(item);
                 break;
             }
@@ -397,7 +385,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
    var sallesLibEpi5 = EPI_5.slice();
    var sallesLibEpi6 = EPI_6.slice();
    var sallesLibAutres = AUTRES.slice();
-
+   
     occupiedRoomsList.epi1.forEach((item, index) => {
         let item_startH = timeToNumeral(item.startH);
         let item_endH = timeToNumeral(item.endH);
@@ -405,11 +393,10 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
         if ( ( (START_HOUR <= item_startH)  && (item_startH < END_HOUR) )
             || ( (START_HOUR < item_endH) && (item_endH <= END_HOUR) ) 
             || ( (item_startH <= START_HOUR) && (END_HOUR <= item_endH) ) ) {
-
+                
                 for(let i = 0; i<sallesLibEpi1.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi1[i]== item.room){
-                        // console.log(item.room);
+                    if(sallesLibEpi1[i].name== item.room){
                         sallesLibEpi1.splice(i-offset,1);
                         offset ++;
                         break;
@@ -428,7 +415,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibEpi2.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi2[i]== item.room){
+                    if(sallesLibEpi2[i].name== item.room){
                         sallesLibEpi2.splice(i-offset,1);
                         offset ++;
                         break;
@@ -447,7 +434,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibEpi3.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi3[i]== item.room){
+                    if(sallesLibEpi3[i].name== item.room){
                         sallesLibEpi3.splice(i-offset,1);
                         offset ++;
                         break;
@@ -466,7 +453,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibEpi4.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi4[i]== item.room){
+                    if(sallesLibEpi4[i].name== item.room){
                         sallesLibEpi4.splice(i-offset,1);
                         offset ++;
                         break;
@@ -485,7 +472,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibEpi5.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi5[i]== item.room){
+                    if(sallesLibEpi5[i].name== item.room){
                         sallesLibEpi5.splice(i-offset,1);
                         offset ++;
                         break;
@@ -504,7 +491,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibEpi6.length; i++){
                     let offset = 0;
-                    if(sallesLibEpi6[i]== item.room){
+                    if(sallesLibEpi6[i].name== item.room){
                         sallesLibEpi6.splice(i-offset,1);
                         offset ++;
                         break;
@@ -523,7 +510,7 @@ function getSallesLib(occupiedRoomsList, startHour, endHour) {
 
                 for(let i = 0; i<sallesLibAutres.length; i++){
                     let offset = 0;
-                    if(sallesLibAutres[i]== item.room){
+                    if(sallesLibAutres[i].name== item.room){
                         sallesLibAutres.splice(i-offset,1);
                         offset ++;
                         break;
@@ -570,7 +557,7 @@ function getProjectId(sessionId){
         settingProject(sessionId, projId);
     })
     .catch(e => {
-        console.log(e);
+        sendLog(e)
         return e;
     }
     );
@@ -587,7 +574,7 @@ function settingProject(sessionId, projectId){
         // Parser réponse en XML :
         let parser = new DOMParser();	
         let xmlResponse = parser.parseFromString(data, "application/xml"); 
-        // console.log(xmlResponse);
+
         // Récupération de projectId :
         let settingProject  = xmlResponse.getElementsByTagName('setProject');
         let sessionIdent = settingProject[0].getAttribute('sessionId');
@@ -596,7 +583,8 @@ function settingProject(sessionId, projectId){
         var endRequest2 = new Date().getTime();
         var requestDuration2 = endRequest2 - startRequest2;
         if(sessionIdent == 'undefined'){
-            console.log(setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2));
+            var errLog = setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2;
+            sendLog(errLog);
         }
         else {
             // Logger dans fichier Drive Sallib' :
@@ -611,14 +599,14 @@ function settingProject(sessionId, projectId){
         getEvents(sessionId);
     })
     .catch(e => {
-        console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+        sendLog(e);           // A logger avec events du pdf + avec heure et nb trames etc.
         return e;
     });	
 }
 
 // Récupérer les events de ADE 
 function getEvents(sessionId){  
-    var date = getCurrentDateForEvent(); // var date = '02/24/2020';
+    var date = getCurrentDateForEvent(); 
     const events = baseURL + '?sessionId='+ sessionId +'&function=getEvents&tree=true&date=' + date + '&detail=8';
     // Requête http :
     var startRequest3 = new Date().getTime(); 
@@ -629,16 +617,15 @@ function getEvents(sessionId){
             let parser = new DOMParser();	
             let xmlResponse = parser.parseFromString(data, "application/xml"); 
             // Log :
-            // console.log(xmlResponse);
             var endRequest3 = new Date().getTime();
             var requestDuration3 = endRequest3 - startRequest3;
 
             // Logger dans fichier Drive Sallib' :
             var log = setLog('get events', [['Session ID', sessionId], ['tree', true], ['detail', 8], ['date', date]], requestDuration3, data.length); 
-            sendLog(log);
+            sendLog(log); 
 
             // Récupération des balises <events> :
-            let event  = xmlResponse.getElementsByTagName('event');
+            let event  = xmlResponse.getElementsByTagName('event'); 
             // Récupération des balises inférieures <resources> :
             var resources  = xmlResponse.getElementsByTagName('resources');
             // Array de 3 valeurs par élément pour répertorier chaque salle avec ses dates de réservation programmé (https://stackoverflow.com/questions/13219348/adding-multiple-values-to-an-array-in-javascript)
@@ -663,24 +650,25 @@ function getEvents(sessionId){
             
             // Déconnexion de session ADE :
             disconnection(sessionId);
-
+ 
             // Pré-filtrage des salles :
             var processedList = filter(occupiedRooms);
             // Tri par épi :
-            planifRooms = occupiedRoomsPerEpi(processedList);
-            //console.log(planifRooms);   // utilisable en faisant occupiedRooms.epi1 etc.
+            planifRooms = occupiedRoomsPerEpi(processedList); 
             // Slot par défaut :
             var default_slot = getDefaultSlot();
             // Filtrages des salles libres : 
             var sallesLib = getSallesLib(planifRooms, default_slot[0], default_slot[1]);      
-            //console.log(sallesLib);
+
+            // Activer le bouton de recherche pour rechercher par créneau horaire dans la journée : 
+            $('button.bouton_recherche').prop('disabled', false);
 
             // Affichage des salles libres par épi :
             AffichageFront(sallesLib);
             ajoutClique();
         })
         .catch(e => {
-            console.log(e);           // A logger avec events du pdf + avec heure etc.
+            sendLog(e);           // A logger avec events du pdf + avec heure etc.
             return e;
         });	
 }
@@ -702,7 +690,8 @@ function disconnection(sessionId){
         var endRequest4 = new Date().getTime();
         var requestDuration4 = endRequest4 - startRequest4;
         if(sessionIdent == 'undefined'){
-            console.log(setErrorLog('disconnect', 'ERROR "session Id" is undefined !', requestDuration4));
+            var errLog = setErrorLog('disconnect', 'ERROR "session Id" is undefined !', requestDuration4);
+            sendLog(errLog);
         }
         else {
             // Logger dans fichier Drive Sallib' :
@@ -711,7 +700,7 @@ function disconnection(sessionId){
         }
     })
     .catch(e => {
-        console.log(e);
+        sendLog(e);
         return e;
     });	
 }
@@ -728,7 +717,6 @@ function getClassroomsTot(sessionId){
         let parser = new DOMParser();	
         let xmlResponse = parser.parseFromString(data, "application/xml"); 
         // Log :
-        // console.log(xmlResponse);
         var endRequest5 = new Date().getTime();
         var requestDuration5 = endRequest5 - startRequest5;      
         
@@ -748,8 +736,8 @@ function getClassroomsTot(sessionId){
         updateClassroomsList(sessionId, roomsESIEE);
         })
         .catch(e => {
-        console.log(e);           // A logger avec events du pdf + avec heure et nb trames etc.
-        return e;
+            sendLog(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+            return e;
         });	
 }
 
@@ -782,7 +770,7 @@ function ADEconnect (){
             getProjectId(sessionId);
         })
         .catch(e => {
-            console.log(e);
+            sendLog(e);
             return e;
         });	
     })
@@ -908,13 +896,11 @@ const AUTRES =[{name :'0110',   type : 'amphi'},
 				{name :'0244',  type : 'null'},
 				{name :'0351',  type : 'null'}];
 
-//const PROFS = 
-
 
 // Liste salles de Cergy :
-const Cergy = ['108', '109', '110', '204', '208', 'B5', 'B6', 'C1', 'C2', 'C3', 'C4', 'P1', 'P2', 'P3', 'TP1', 'TP2', 'TP3', 'TP4', 'TPR1', 'TPR2'];
+const Cergy = [{name :'108'}, {name :'109'}, {name :'110'}, {name :'204'}, {name :'208'}, {name :'B5'}, {name :'B6'}, {name :'C1'}, {name :'C2'}, {name :'C3'}, {name :'C4'}, {name :'P1'}, {name :'P2'}, {name :'P3'}, {name :'TP1'}, {name :'TP2'}, {name :'TP3'}, {name :'TP4'}, {name :'TPR1'}, {name :'TPR2'}];
 // Liste des élements indésirables (salle à préciser, MD, salles de partiels):
-const Indesirables = ['salle à préciser 1', 'M.D.', '4405', '4405-2', '4405-3', '4405-4', , '4405-5', '4451','4451-2','4451-3', '7100'];
+const Indesirables = [{name :'salle à préciser 1'}, {name :'M.D.'}, {name :'4405'}, {name :'4405-2'}, {name :'4405-3'}, {name :'4405-4'}, , {name :'4405-5'}, {name :'4451'}, {name :'4451-2'}, {name :'4451-3'}, {name :'7100'}];
 // Elaboration du fitre qui va pré-traiter les données remontées :
 const Filter_default = Cergy.concat(Indesirables);
 
@@ -930,6 +916,8 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Trouver une solutio
 // Array qui contiendra les salles occupées (classées par épi):
 var planifRooms = [];
 
+// Désactiver le bouton de recherche jusqu'au chargement des données : 
+$('button.bouton_recherche').prop('disabled', true);
 
 // Connexion à ADE (main) :
 ADEconnect();
