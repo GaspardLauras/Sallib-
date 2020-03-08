@@ -557,7 +557,7 @@ function getProjectId(sessionId){
         settingProject(sessionId, projId);
     })
     .catch(e => {
-        sendLog(e)
+        sendLog(e);
         return e;
     }
     );
@@ -583,7 +583,7 @@ function settingProject(sessionId, projectId){
         var endRequest2 = new Date().getTime();
         var requestDuration2 = endRequest2 - startRequest2;
         if(sessionIdent == 'undefined'){
-            var errLog = setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2;
+            var errLog = setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2);
             sendLog(errLog);
         }
         else {
