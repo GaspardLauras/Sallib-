@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>SALLIB'</title>
+		<link rel="stylesheet" href="Sallib.css">
+	</head>
+
+	<body>
+		<header>
+		<!-- MENU -->
+			<a class="titre" href="index.html"><img src="LogoMoche.jpg"></a>
+			<nav>
+				<ul class="menu_elements">
+					<li><a href="Bureaux.html">BUREAUX</a></li>
+					<li><a href="SallesInfos.html">SALLES INFOS</a></li>
+					<li><a href="#">LABOS D'ELECTRONIQUE</a></li>
+					<li><a href="#">AMPHIS</a></li>
+				</ul>
+			</nav>
+			
+			<a href="https://github.com/GaspardLauras/Sallib-"><button id="Git"> <strong>GITHUB</strong></button></a>
+			
+		</header>
+
+
+		<!--CHOIX DE L'HEURE-->
+		<div class="HEURE">
+			<div class="choix_heure">
+				<div class="heure_input">DE</div>
+
+				<div class="heure_input" id="debut">
+					<input type="time" id="debut" name="debut" 
+	      					size="10" required>
+				</div>
+
+				<div class="heure_input">A</div>
+
+				<div class="heure_input" id="fin">
+					<input type="time" id="fin" name="fin" 
+	      					size="10" required>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="bouton_recherche_div">
+				<button class="bouton_recherche" id="bouton_recherche">RECHERCHE</button>
+				</div>
+			</div>
+		</div>
+
+
+		<!--SALLES LIBRES-->
+		<div class="salles_libres">
+			<div class="salles_libres_text">
+				<p>SALLES DISPONIBLES</p>
+			</div>
+			<div class="salles_libres_containeur">
+				<div class="salles_libres_containeur_1"><div></div></div>
+				<div class="salles_libres_containeur_2"><div></div></div>
+				<div class="salles_libres_containeur_3"><div></div></div>
+				<div class="salles_libres_containeur_4"><div></div></div>
+			</div>
+		</div>
+
+
+		<!--CARTE ESIEE-->
+		<div class="carte_esiee">
+			<div class="rue">
+				<p>RUE</p>
+			</div>
+			<div class="epis_containeur">
+				<div class="epi" id="epi_1">
+					<p>EPI I</p>
+				</div>
+				<div class="epi" id="epi_2">
+					<p>EPI II</p>
+				</div>
+				<div class="epi" id="epi_3">
+					<p>EPI III</p>
+				</div>
+				<div class="epi" id="epi_4">
+					<p>EPI IV</p>
+				</div>
+				<div class="epi" id="epi_5">
+					<p>EPI V</p>
+				</div>
+				<div class="epi" id="epi_6">
+					<p>EPI VI</p>
+				</div>
+			</div>
+		</div>
+
+
+		<script
+  			src="https://code.jquery.com/jquery-3.4.1.js"
+  			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  			crossorigin="anonymous">	
+  		</script>
+  		<script src="Sallib.js"></script>
+	</body>
+
+	<footer>
+		<div class="titre_footer">
+			<p><strong>DEVELOPPEURS</strong></p>
+		</div>
+		<div class="devs">
+			<div><a href="#">Luc MEUNIER</a></div>
+			<div><a href="#">Thibaud LE DU</a></div>
+			<div><a href="">Lilian DE CONTI</a></div>
+			<div><a href="#">Thibault DOS SANTOS</a></div>
+			<div><a href="#">Jérôme KACIMI</a></div>
+			<div><a href="">Gaspard LAURAS</a></div>
+		</div>
+	</footer>
+</html>

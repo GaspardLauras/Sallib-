@@ -1,0 +1,232 @@
+html
+{
+	font-family: Trebuchet MS ;
+	background-color: #24252A;
+	color: whitesmoke;
+}
+
+
+
+/*************************************************************************
+***************************** MENU ***************************************/
+header{
+	
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 10%;
+	background-color: white;
+}
+
+header li, a{
+	font-weight: 500;
+	font-size: 40px;
+	text-decoration: none;
+}
+
+/* .titre{
+	color: rgba(0, 136, 169, 1);
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 50px;
+	transition: all 0.3s ease 0s;
+} */
+
+
+.menu_elements li{
+	display: inline-block;
+	padding: 0px 10px;
+}
+
+.menu_elements li a{
+	color: rgba(0, 136, 169, 1);
+	transition: all 0.3s ease 0s;
+}
+
+.menu_elements li a:hover{
+	color: rgba(0, 136, 169, 0.5);
+}
+
+button{
+	font-size: 30px;
+	padding: 9px 25px;
+	background-color: rgba(0, 136, 169, 1);
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+header button:hover{
+	background-color:rgb(255,255,255);
+	color: rgba(0, 136, 169, 1.0);
+}
+
+
+
+
+
+/*************************************************************************
+***************************** HORAIRE ***********************************/
+.HEURE{
+	border-radius: 10px;
+	border: solid #edf0f1 2px;
+	padding: 20px;
+	margin-top: 50px;
+	font-size: 30px;
+}
+
+.choix_heure{
+	display: flex;
+	flex-wrap: nowrap;	
+	justify-content: center;
+}
+
+.bouton_recherche_div{
+	display: flex;
+	justify-content: center;
+}
+
+.bouton_recherche{
+	padding: 9px 25px;
+	background-color: rgba(0, 136, 169, 1);
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+.heure_input{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+input{
+	font-size: 30px;
+	background-color: rgb;
+}
+
+.HEURE button:hover{
+	background-color: #24252A;
+	color: rgba(0, 136, 169, 0.7);
+}
+
+
+
+/*************************************************************************
+***************************** SALLES LIBRES *****************************/
+.salles_libres{
+	border: solid 2px #edf0f1;
+	margin: 40px 0px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.salles_libres_text{
+	cursor: pointer;
+	font-size: 22px;
+	margin: 10px;
+	transition: all 0.3s ease 0s;
+}
+
+.salles_libres_text:hover{
+	font-size: 26px;
+	color: rgba(0, 136, 169, 1);
+}
+
+.salles_libres_containeur{
+	display: flex;
+	justify-content: space-around;
+}
+
+
+
+
+
+
+/*************************************************************************
+***************************** CARTE *************************************/
+.carte_esiee{
+	border-radius: 10px;
+	border: solid #edf0f1 2px;
+	padding: 20px;
+	margin-top: 100px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 20px;
+}
+
+.rue p{
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+.rue p:hover{
+	font-size: 23px;
+	color: rgba(0, 136, 169, 1);
+}
+
+.epis_containeur{
+	display: flex;
+	justify-content: space-around;
+	margin: 30px 0px;
+}
+
+.epi p{
+	cursor: pointer;
+	text-align: center;
+	width: 100px;
+	transition: all 0.3s ease 0s;
+}
+
+.epi p:hover{
+	font-size: 23px;
+	color: rgba(0, 136, 169, 1);
+}
+
+
+
+
+/*************************************************************************
+***************************** FOOTER ************************************/
+footer{
+	color: #edf0f1;
+	margin: 100px 0px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.titre_footer{
+	border-bottom: solid 2px #edf0f1;
+}
+
+.devs{
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.devs a{
+	
+	margin: 0px 20px;
+	transition: all 0.3s ease 0s;
+}
+
+.devs a:hover{
+	color: rgba(0, 136, 169, 1);
+}
+
+footer li, a{
+	font-weight: 500;
+	font-size: 25px;
+	color: #edf0f1;
+	text-decoration: none;
+}
