@@ -149,7 +149,10 @@ button:hover{
 	font-size: 20px;
 }
 
+.carte_esiee
+
 .rue p{
+	font-size: 30px;
 	cursor: pointer;
 	transition: all 0.3s ease 0s;
 }
@@ -166,6 +169,7 @@ button:hover{
 }
 
 .epi p{
+	font-size: 30px;
 	cursor: pointer;
 	text-align: center;
 	width: 100px;

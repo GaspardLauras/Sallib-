@@ -46,6 +46,7 @@ function ajoutClique(){
     $('div#epi_2').click(function(){
         $('div.salles_libres_epi2').toggle(300);//Permet de cacher et d'afficher les salles libres
         //Le paramètre est le temps que met le navigateur à afficher ou cacher en ms
+        $('.epi#epi_2 p').css('transform', 'rotate(deg')
     });
 
 
