@@ -900,7 +900,7 @@ const AUTRES =[{name :'0110',   type : 'amphi'},
 // Liste salles de Cergy :
 const Cergy = [{name :'108'}, {name :'109'}, {name :'110'}, {name :'204'}, {name :'208'}, {name :'B5'}, {name :'B6'}, {name :'C1'}, {name :'C2'}, {name :'C3'}, {name :'C4'}, {name :'P1'}, {name :'P2'}, {name :'P3'}, {name :'TP1'}, {name :'TP2'}, {name :'TP3'}, {name :'TP4'}, {name :'TPR1'}, {name :'TPR2'}];
 // Liste des élements indésirables (salle à préciser, MD, salles de partiels):
-const Indesirables = [{name :'salle à préciser 1'}, {name :'M.D.'}, {name :'4405'}, {name :'4405-2'}, {name :'4405-3'}, {name :'4405-4'}, , {name :'4405-5'}, {name :'4451'}, {name :'4451-2'}, {name :'4451-3'}, {name :'7100'}];
+const Indesirables = [{name :'salle à préciser 1'}, {name :'M.D.'}, {name :'4405'}, {name :'4405-2'}, {name :'4405-3'}, {name :'4405-4'}, {name :'4405-5'}, {name :'4451'}, {name :'4451-2'}, {name :'4451-3'}, {name :'7100'}];
 // Elaboration du fitre qui va pré-traiter les données remontées :
 const Filter_default = Cergy.concat(Indesirables);
 
