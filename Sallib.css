@@ -19,7 +19,6 @@ header{
 	justify-content: space-between;
 	align-items: center;
 	padding: 0px 10%;
-	background-color: white;
 	/* position: fixed; */
 }
 
@@ -28,14 +27,6 @@ header li, a{
 	font-size: 40px;
 	text-decoration: none;
 }
-
-/* .titre{
-	color: rgba(0, 136, 169, 1);
-	cursor: pointer;
-	font-weight: 700;
-	font-size: 50px;
-	transition: all 0.3s ease 0s;
-} */
 
 
 .menu_elements li{
@@ -60,11 +51,6 @@ button{
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s ease 0s;
-}
-
-header button:hover{
-	background-color:rgb(255,255,255);
-	color: rgba(0, 136, 169, 1.0);
 }
 
 
