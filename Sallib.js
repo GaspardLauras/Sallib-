@@ -339,16 +339,48 @@ function timeToNumeral(hourString){
     return parseInt(split[0], 10) + parseInt((parseInt(split[1], 10))/6)/10; 
 }
 
-// Filtre les salles selon leur type -> A TESTER quand on aura l'attribut "type"
-function classifyRoomTypes(roomsList){
+// Filtre les salles selon leur type (local à épi)
+function getRoomsType(roomsEpi) {
   // Tri des amphis :
-  var amphiList = roomsList.filter(obj => { return obj.type === 'amphi' });
+  amphiList = roomsEpi.filter(obj => { return obj.type === 'amphi' });
   // Tri des salles info :
-  var infoList = roomsList.filter(obj => { return obj.type === 'info' });
+  infoList = roomsEpi.filter(obj => { return obj.type === 'info' });
   // Tri des salles d'elec :
-  var elecList = roomsList.filter(obj => { return obj.type === 'elec' }); 
+  elecList = roomsEpi.filter(obj => { return obj.type === 'elec' }); 
+
+  return [amphiList, infoList, elecList];
+}
+
+// Filtre les salles des épis par type
+function classifyRoomTypes(roomsList){
+  var amphiList = []; 
+  var infoList = []; 
+  var elecList = [];
+  roomsList = roomsList[0];
+  
+  amphiList = getRoomsType(roomsList.epi1)[0].concat(getRoomsType(roomsList.epi2)[0]).concat(getRoomsType(roomsList.epi3)[0])
+            .concat(getRoomsType(roomsList.epi4)[0]).concat(getRoomsType(roomsList.epi5)[0]).concat(getRoomsType(roomsList.epi6)[0])
+            .concat(getRoomsType(roomsList.autres)[0]);
+  infoList = getRoomsType(roomsList.epi1)[1].concat(getRoomsType(roomsList.epi2)[1]).concat(getRoomsType(roomsList.epi3)[1])
+            .concat(getRoomsType(roomsList.epi4)[1]).concat(getRoomsType(roomsList.epi5)[1]).concat(getRoomsType(roomsList.epi6)[1])
+            .concat(getRoomsType(roomsList.autres)[1]);
+  elecList = getRoomsType(roomsList.epi1)[2].concat(getRoomsType(roomsList.epi2)[2]).concat(getRoomsType(roomsList.epi3)[2])
+            .concat(getRoomsType(roomsList.epi4)[2]).concat(getRoomsType(roomsList.epi5)[2]).concat(getRoomsType(roomsList.epi6)[2])
+            .concat(getRoomsType(roomsList.autres)[2]);
+
   // Renvoyer les trois listes :
   return [{amphis : amphiList, info : infoList, elec : elecList}];
+}
+
+// Tri des salles d'un épi par étage 
+function clusterByFloor(epiName){
+    // console.log(epiName);
+    var floorRooms = [];
+    for(let i=0; i<=4; i++) {
+        floorRooms[i] = epiName.filter(obj => { return obj.name.substring(1,2) === (i+'') });
+    }
+    
+    return floorRooms;
 }
 
 // Obtenir l'heure actuelle, créneau de 2h par défaut
@@ -600,7 +632,7 @@ function settingProject(sessionId, projectId){
         getEvents(sessionId);
     })
     .catch(e => {
-        sendLog(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+        sendLog(e);           
         return e;
     });	
 }
@@ -658,8 +690,22 @@ function getEvents(sessionId){
             planifRooms = occupiedRoomsPerEpi(processedList); 
             // Slot par défaut :
             var default_slot = getDefaultSlot();
-            // Filtrages des salles libres : 
+            // Filtrage des salles libres : 
             var sallesLib = getSallesLib(planifRooms, default_slot[0], default_slot[1]);      
+
+            // Tri par type de salle :
+            roomsByType = classifyRoomTypes(sallesLib);
+            // Stockage local de la donnée (pour communiquer aux onglets) :
+            localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
+
+            // A utiliser :
+            /*
+            var sallesAmphis = JSON.parse(localStorage.getItem('TypeRooms'));
+            console.log(sallesAmphis);
+            localStorage.removeItem('TypeRooms');
+            */
+            // A utiliser :
+            // clusterByFloor(sallesLib[0].epi1);
 
             // Activer le bouton de recherche pour rechercher par créneau horaire dans la journée : 
             $('button.bouton_recherche').prop('disabled', false);
@@ -669,7 +715,7 @@ function getEvents(sessionId){
             ajoutClique();
         })
         .catch(e => {
-            sendLog(e);           // A logger avec events du pdf + avec heure etc.
+            sendLog(e);          
             return e;
         });	
 }
@@ -737,7 +783,7 @@ function getClassroomsTot(sessionId){
         updateClassroomsList(sessionId, roomsESIEE);
         })
         .catch(e => {
-            sendLog(e);           // A logger avec events du pdf + avec heure et nb trames etc.
+            sendLog(e);           
             return e;
         });	
 }
@@ -917,6 +963,9 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Trouver une solutio
 // Array qui contiendra les salles occupées (classées par épi):
 var planifRooms = [];
 
+// Array qui contient les salles classées par type :
+var roomsByType = [];
+
 // Désactiver le bouton de recherche jusqu'au chargement des données : 
 $('button.bouton_recherche').prop('disabled', true);
 
@@ -1054,7 +1103,13 @@ horaire_fin.addEventListener('input',function(e){
 
 $('button.bouton_recherche').click(function(){
     console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
+    // Mise à jour de la liste des salles libres (avec le créneau spécifié) :
     var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value);   
+    // Mise à jour de la liste des salles classées par type :
+    roomsByType =  classifyRoomTypes(sallib);
+    // Mise à jour du stockage :
+    localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
+    // Msie à jour de l'affichage des salles :
     AffichageFront(sallib);
 });
 
