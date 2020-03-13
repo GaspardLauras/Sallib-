@@ -215,25 +215,25 @@ function updateClassroomsList(sessionId, dataRooms){
     var roomsList = [];
     
     dataRooms.forEach((item, index) => {
-    let isNew = 1;
-    // Filtrage par indésirables :
-    for(i=0; i < Filter_default.length; i++){
-        if(item == Filter_default[i].name){
-            isNew = 0;
-            break;
+        let isNew = 1;
+        // Filtrage par indésirables :
+        for(i=0; i < Filter_default.length; i++){
+            if(item == Filter_default[i].name){
+                isNew = 0;
+                break;
+            }
         }
-    }
-    // Filtrage par les salles valides actuelles :
-    for(i=0; i < previousRoomsList.length; i++){
-        if(item == previousRoomsList[i].name){
-            isNew = 0;
-            break;
+        // Filtrage par les salles valides actuelles :
+        for(i=0; i < previousRoomsList.length; i++){
+            if(item == previousRoomsList[i].name){
+                isNew = 0;
+                break;
+            }
         }
-    }
-    // Si l'élément est nouveau :
-    if (isNew == 1){
-        roomsList.push(item);
-    }
+        // Si l'élément est nouveau :
+        if (isNew == 1){
+            roomsList.push(item);
+        }
     })
     console.log(roomsList);
 
@@ -844,7 +844,6 @@ function ADEconnect (){
 // Liste des salles par épi :   
 const EPI_1 = [{name :'1001V',  type : 'null'},
 			   {name :'1007V+', type : 'null'},
-			   {name :'1005',   type : 'null'},
 			   {name :'1007V',  type : 'null'},
 			   {name :'1051',   type : 'null'},
 			   {name :'1055V+', type : 'null'},
@@ -882,8 +881,7 @@ const EPI_2 = [{name :'2101',   type : 'null'},
 			   {name :'2209',   type : 'null'},
 			   {name :'2305V+', type : 'null'},
 			   {name :'2309+',  type : 'null'},
-			   {name :'2401V+', type : 'null'},
-			   {name :'2409V+', type : 'null'},];  
+			   {name :'2401V+', type : 'null'}];  
 const EPI_3 = [{name :'3001',   type : 'null'},
 			   {name :'3005',   type : 'null'},
 			   {name :'3007',   type : 'null'},
@@ -901,7 +899,7 @@ const EPI_3 = [{name :'3001',   type : 'null'},
 			   {name :'3305',   type : 'null'},
 			   {name :'3307+',  type : 'null'},
 			   {name :'3401V+', type : 'null'},
-			   {name :'3407V',  type : 'null'},];
+			   {name :'3407V',  type : 'null'}];
 const EPI_4 = [{name :'4003V+', type : 'null'},
 			   {name :'4007V',  type : 'null'},
 			   {name :'4105V',  type : 'null'},
@@ -912,8 +910,6 @@ const EPI_4 = [{name :'4003V+', type : 'null'},
 			   {name :'4401',   type : 'null'},
 			   {name :'4403',   type : 'null'}];
 const EPI_5 = [{name :'5004',   type : 'null'},
-			   {name :'5006V+', type : 'null'},
-			   {name :'5008V++',type : 'null'},
 			   {name :'5101+',  type : 'null'},
 			   {name :'5103+',  type : 'null'},
 			   {name :'5105V',  type : 'null'},
@@ -926,8 +922,7 @@ const EPI_5 = [{name :'5004',   type : 'null'},
 			   {name :'5308',   type : 'null'},
 			   {name :'5309V',  type : 'null'},
 			   {name :'5401V',  type : 'null'},
-			   {name :'5403V',  type : 'null'},
-			   {name :'5407V',  type : 'null'},];
+			   {name :'5403V',  type : 'null'}];
 const EPI_6 = [{name :'6301' ,  type : 'null'},
 			   {name :'6401+',  type : 'null'},
 			   {name :'6409V',  type : 'null'}];
@@ -938,22 +933,16 @@ const AUTRES =[{name :'0110',   type : 'amphi'},
 				{name :'0112',  type : 'null'},
 				{name :'0113',  type : 'null'},
 				{name :'0114',  type : 'null'},
-				{name :'0115',  type : 'null'},
-				{name :'0162V', type : 'null'},
-				{name :'0163',  type : 'null'},
-				{name :'0164V', type : 'null'},
-				{name :'0165V', type : 'null'},
-				{name :'0232',  type : 'null'},
-				{name :'0244',  type : 'null'},
-				{name :'0351',  type : 'null'}];
-
+				{name :'0115',  type : 'null'}];
 
 // Liste salles de Cergy :
 const Cergy = [{name :'108'}, {name :'109'}, {name :'110'}, {name :'204'}, {name :'208'}, {name :'B5'}, {name :'B6'}, {name :'C1'}, {name :'C2'}, {name :'C3'}, {name :'C4'}, {name :'P1'}, {name :'P2'}, {name :'P3'}, {name :'TP1'}, {name :'TP2'}, {name :'TP3'}, {name :'TP4'}, {name :'TPR1'}, {name :'TPR2'}];
 // Liste des élements indésirables (salle à préciser, MD, salles de partiels):
 const Indesirables = [{name :'salle à préciser 1'}, {name :'M.D.'}, {name :'4405'}, {name :'4405-2'}, {name :'4405-3'}, {name :'4405-4'}, {name :'4405-5'}, {name :'4451'}, {name :'4451-2'}, {name :'4451-3'}, {name :'7100'}];
+// Salles non-accessibles aux étudiants :
+const Inaccessibles = [{name :'1005'},{name :'2409V+'},{name :'5006V+'},{name :'5008V++'},{name :'5407V'},{name :'0162V'},{name :'0163'},{name :'0164V'},{name :'0165V'},{name :'0232'},{name :'0244'},{name :'0351'}];
 // Elaboration du fitre qui va pré-traiter les données remontées :
-const Filter_default = Cergy.concat(Indesirables);
+const Filter_default = Cergy.concat(Indesirables).concat(Inaccessibles);
 
 // Paramètres pour les requêtes :
 const ip = 'planif.esiee.fr';
