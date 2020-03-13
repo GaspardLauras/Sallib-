@@ -698,6 +698,10 @@ function getEvents(sessionId){
             // Stockage local de la donnée (pour communiquer aux onglets) :
             localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
 
+            // Indiquer que la requête a été effectuée (pour éviter chargement à chaque retour sur la page principale) :
+            dataLoaded = true;
+            // localStorage.setItem('DoneRequest', JSON.stringify(dataLoaded));          // TODO
+            
             // A utiliser :
             /*
             var sallesAmphis = JSON.parse(localStorage.getItem('TypeRooms'));
@@ -966,11 +970,21 @@ var planifRooms = [];
 // Array qui contient les salles classées par type :
 var roomsByType = [];
 
-// Désactiver le bouton de recherche jusqu'au chargement des données : 
-$('button.bouton_recherche').prop('disabled', true);
+// var yo = localStorage.getItem('DoneRequest', JSON.stringify(dataLoaded));
+/*
+if (yo == undefined) {
+    console.log('coucou');
+}
+*/
 
-// Connexion à ADE (main) :
-ADEconnect();
+var dataLoaded = new Boolean(false);
+if(dataLoaded == false) {
+    // Désactiver le bouton de recherche jusqu'au chargement des données : 
+    $('button.bouton_recherche').prop('disabled', true);
+
+    // Connexion à ADE (main) :
+    ADEconnect();
+}
 
 
 
