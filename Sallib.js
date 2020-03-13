@@ -344,9 +344,9 @@ function getRoomsType(roomsEpi) {
   // Tri des amphis :
   amphiList = roomsEpi.filter(obj => { return obj.type === 'amphi' });
   // Tri des salles info :
-  infoList = roomsEpi.filter(obj => { return obj.type === 'info' });
+  infoList = roomsEpi.filter(obj => { return obj.type === 'salle informatique' });
   // Tri des salles d'elec :
-  elecList = roomsEpi.filter(obj => { return obj.type === 'elec' }); 
+  elecList = roomsEpi.filter(obj => { return obj.type === 'laboratoire' }); 
 
   return [amphiList, infoList, elecList];
 }
@@ -698,10 +698,10 @@ function getEvents(sessionId){
             // Stockage local de la donnée (pour communiquer aux onglets) :
             localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
 
-            // Indiquer que la requête a été effectuée (pour éviter chargement à chaque retour sur la page principale) :
-            dataLoaded = true;
-            // localStorage.setItem('DoneRequest', JSON.stringify(dataLoaded));          // TODO
-            
+            // Indiquer que la requête a été effectuée (pour éviter chargement à chaque retour sur la page principale)
+            // Stockage de la date du jour associée : 
+            localStorage.setItem('DayLoaded', getCurrentDateForEvent(new Date()));
+                     
             // A utiliser :
             /*
             var sallesAmphis = JSON.parse(localStorage.getItem('TypeRooms'));
@@ -933,7 +933,9 @@ const AUTRES =[{name :'0110',   type : 'amphi'},
 				{name :'0112',  type : 'classique'},
 				{name :'0113',  type : 'classique'},
 				{name :'0114',  type : 'classique'},
-				{name :'0115',  type : 'classique'}];
+                {name :'0115',  type : 'classique'}];
+                
+// Vérifier salles 3409 et 5304
 
 // Liste salles de Cergy :
 const Cergy = [{name :'108'}, {name :'109'}, {name :'110'}, {name :'204'}, {name :'208'}, {name :'B5'}, {name :'B6'}, {name :'C1'}, {name :'C2'}, {name :'C3'}, {name :'C4'}, {name :'P1'}, {name :'P2'}, {name :'P3'}, {name :'TP1'}, {name :'TP2'}, {name :'TP3'}, {name :'TP4'}, {name :'TPR1'}, {name :'TPR2'}];
@@ -959,21 +961,27 @@ var planifRooms = [];
 // Array qui contient les salles classées par type :
 var roomsByType = [];
 
-// var yo = localStorage.getItem('DoneRequest', JSON.stringify(dataLoaded));
-/*
-if (yo == undefined) {
-    console.log('coucou');
-}
-*/
+// Désactiver le bouton de recherche jusqu'au chargement des données : 
+$('button.bouton_recherche').prop('disabled', true);
 
-var dataLoaded = new Boolean(false);
-if(dataLoaded == false) {
+// Connexion à ADE (main) :
+ADEconnect();
+
+/* TODO :
+// Faire la requête de récupération des salles de la journée uniquement si elle n'a pas déjà été faite :
+var lastDL = localStorage.getItem('DayLoaded');
+if (lastDL != getCurrentDateForEvent(new Date())) {
     // Désactiver le bouton de recherche jusqu'au chargement des données : 
     $('button.bouton_recherche').prop('disabled', true);
 
     // Connexion à ADE (main) :
     ADEconnect();
 }
+else {
+    // print les salles dans menu principal (boolean ?)
+}
+*/
+
 
 
 
