@@ -274,7 +274,7 @@ function occupiedRoomsPerEpi(occupiedRoomsList) {
     var occupiedRooms_epi5 = [];
     var occupiedRooms_epi6 = [];
     var occupiedRooms_autres = [];
-    
+
     // Filtrage par EPI :
     occupiedRoomsList.forEach((item, index) => {
         // Filtrage EPI 1 :
@@ -406,7 +406,7 @@ function getDefaultSlot(){
 function getSallesLib(occupiedRoomsList, startHour, endHour) {         
     
     occupiedRoomsList = occupiedRoomsList[0];
-
+    
     var START_HOUR = timeToNumeral(startHour);
     var END_HOUR = timeToNumeral(endHour);
    
@@ -692,11 +692,12 @@ function getEvents(sessionId){
             var default_slot = getDefaultSlot();
             // Filtrage des salles libres : 
             var sallesLib = getSallesLib(planifRooms, default_slot[0], default_slot[1]);      
-
             // Tri par type de salle :
             roomsByType = classifyRoomTypes(sallesLib);
-            // Stockage local de la donnée (pour communiquer aux onglets) :
-            localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
+            
+            // Stockage local des données (pour communiquer aux onglets) :
+            localStorage.setItem('TypeRooms', JSON.stringify(roomsByType)); // Classement par type - pour labos, salles info, amphis
+            localStorage.setItem('EpiRooms', JSON.stringify(planifRooms)); // Classement par épi - pour retour au menu principal
 
             // Indiquer que la requête a été effectuée (pour éviter chargement à chaque retour sur la page principale)
             // Stockage de la date du jour associée : 
@@ -710,6 +711,9 @@ function getEvents(sessionId){
             */
             // A utiliser :
             // clusterByFloor(sallesLib[0].epi1);
+            
+            // Activer les options de navigation du bandeau :
+            // TODO
 
             // Activer le bouton de recherche pour rechercher par créneau horaire dans la journée : 
             $('button.bouton_recherche').prop('disabled', false);
@@ -961,42 +965,7 @@ var planifRooms = [];
 // Array qui contient les salles classées par type :
 var roomsByType = [];
 
-// Désactiver le bouton de recherche jusqu'au chargement des données : 
-$('button.bouton_recherche').prop('disabled', true);
-
-// Connexion à ADE (main) :
-ADEconnect();
-
-/* TODO :
-// Faire la requête de récupération des salles de la journée uniquement si elle n'a pas déjà été faite :
-var lastDL = localStorage.getItem('DayLoaded');
-if (lastDL != getCurrentDateForEvent(new Date())) {
-    // Désactiver le bouton de recherche jusqu'au chargement des données : 
-    $('button.bouton_recherche').prop('disabled', true);
-
-    // Connexion à ADE (main) :
-    ADEconnect();
-}
-else {
-    // print les salles dans menu principal (boolean ?)
-}
-*/
-
-
-
-
-
-
-
-
-
-
-/*
-====================================================================================================================================
-                            Paramétrage de la recherche par créneau
-====================================================================================================================================
-*/
-//Test pour le bouton et les inputs
+// Initialisation des heures :
 var now = new Date();
 var horaire_debut = document.querySelector('input#debut');
 var horaire_fin = document.querySelector('input#fin');
@@ -1026,6 +995,45 @@ if(nextMinutes<10)
 
 horaire_debut.value = heure +':'+ minutes;
 horaire_fin.value = nextHour +':'+ nextMinutes;
+
+// Faire la requête de récupération des salles de la journée uniquement si elle n'a pas déjà été faite :
+var lastDL = localStorage.getItem('DayLoaded');
+if (lastDL != getCurrentDateForEvent(new Date())) {
+    // Désactiver les options de navigation du bandeau tant que la recherche n'est pas achevée :
+    // TODO
+
+    // Désactiver le bouton de recherche jusqu'au chargement des données : 
+    $('button.bouton_recherche').prop('disabled', true);
+
+    // Connexion à ADE (main) :
+    ADEconnect();
+}
+// Si la requête a déjà été effectuée antérieurement :
+else {
+    // Récupération des salles occupées de la journée, triées par épi :
+    planifRooms = JSON.parse(localStorage.getItem('EpiRooms'));
+    // Détermination des salles libres selon le créneau spécifié, classées par épi :
+    var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value); 
+    // Affichage des salles libres du créneau, par épi :
+    AffichageFront(sallib);
+    ajoutClique();
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+====================================================================================================================================
+                            Paramétrage de la recherche par créneau
+====================================================================================================================================
+*/
 
 // Extrait les heures et minutes du format HH:MM :
 function parseHour(timeValue){
@@ -1115,11 +1123,11 @@ horaire_fin.addEventListener('input',function(e){
 $('button.bouton_recherche').click(function(){
     console.log('RECHERCHE DES SALLES LIBRES DE\nDEBUT : '+horaire_debut.value+' / FIN : '+horaire_fin.value);
     // Mise à jour de la liste des salles libres (avec le créneau spécifié) :
-    var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value);   
+    var sallib = getSallesLib(planifRooms, horaire_debut.value, horaire_fin.value); 
     // Mise à jour de la liste des salles classées par type :
     roomsByType =  classifyRoomTypes(sallib);
     // Mise à jour du stockage :
-    localStorage.setItem('TypeRooms', JSON.stringify(roomsByType));
+    localStorage.setItem('TypeRooms', JSON.stringify(roomsByType)); // Classement par type
     // Msie à jour de l'affichage des salles :
     AffichageFront(sallib);
 });
