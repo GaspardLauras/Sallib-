@@ -60,14 +60,13 @@ button{
 /*************************************************************************
 ***************************** HORAIRE ***********************************/
 .HEURE{
-	border-radius: 10px;
-	border: solid #edf0f1 2px;
 	padding: 20px;
 	margin-top: 50px;
 	font-size: 30px;
 }
 
 .choix_heure{
+	font-family: Trebuchet MS ;
 	display: flex;
 	flex-wrap: nowrap;	
 	justify-content: center;
