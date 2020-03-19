@@ -834,11 +834,13 @@ function ADEconnect (){
             getProjectId(sessionId);
         })
         .catch(e => {
+            var err = e;
             if (e == "TypeError: Failed to fetch"){
-                var errLog = setErrorLog('connect', 'ERROR "Failed to fetch request !"', null);
-                e = errLog;
+                err = setErrorLog('connect', 'ERROR "Failed to fetch request !"', null);
             }
-            err = setErrorLog('connect', e, sessionId);
+            else {
+                err = setErrorLog('connect', e, null);
+            }
             sendLog(err);
             return e;
         });	
