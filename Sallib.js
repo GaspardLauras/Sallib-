@@ -153,11 +153,11 @@ function setLog (functionId, params, duration, size){
 }
 
 // Journalisation des erreurs
-function setErrorLog (functionId, errorMessage){
+function setErrorLog (functionId, errorMessage, sessionId){
     // Initialisation objet temporel :
     let currentDate = new Date();  
     // Date et heure, format [AAAA.MM.JJ - HH:MM:SS], nom de la fonction utilisée :
-    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + errorMessage + " | Function {" + functionId + "}"; 
+    var logger = "[" + getDate(currentDate) + " - " + getTime(currentDate) + "] : " + errorMessage + " | Function {" + functionId + "}"+ " | SessionId {" + sessionId + "}"; 
     return logger;  
 }
 
@@ -590,7 +590,8 @@ function getProjectId(sessionId){
         settingProject(sessionId, projId);
     })
     .catch(e => {
-        sendLog(e);
+        err = setErrorLog('getProjectId', e, sessionId);
+        sendLog(err);
         return e;
     }
     );
@@ -616,7 +617,7 @@ function settingProject(sessionId, projectId){
         var endRequest2 = new Date().getTime();
         var requestDuration2 = endRequest2 - startRequest2;
         if(sessionIdent == 'undefined'){
-            var errLog = setErrorLog('set project', 'ERROR "session Id" is undefined !', requestDuration2);
+            var errLog = setErrorLog('set project', 'ERROR "session Id" is undefined !', sessionId);
             sendLog(errLog);
         }
         else {
@@ -632,7 +633,8 @@ function settingProject(sessionId, projectId){
         getEvents(sessionId);
     })
     .catch(e => {
-        sendLog(e);           
+        err = setErrorLog('settingProject', e, sessionId);
+        sendLog(err);          
         return e;
     });	
 }
@@ -715,6 +717,10 @@ function getEvents(sessionId){
             // Activer les options de navigation du bandeau :
             // TODO
 
+            // LOGGER MESSAGES ERREURS DE ADE
+
+            // Activer les options de navigation du bandeau :
+             $('ul.menu_elements').show();
             // Activer le bouton de recherche pour rechercher par créneau horaire dans la journée : 
             $('button.bouton_recherche').prop('disabled', false);
 
@@ -723,7 +729,8 @@ function getEvents(sessionId){
             ajoutClique();
         })
         .catch(e => {
-            sendLog(e);          
+            err = setErrorLog('getEvents', e, sessionId);
+            sendLog(err);      
             return e;
         });	
 }
@@ -745,7 +752,7 @@ function disconnection(sessionId){
         var endRequest4 = new Date().getTime();
         var requestDuration4 = endRequest4 - startRequest4;
         if(sessionIdent == 'undefined'){
-            var errLog = setErrorLog('disconnect', 'ERROR "session Id" is undefined !', requestDuration4);
+            var errLog = setErrorLog('disconnect', 'ERROR "session Id" is undefined !', sessionId);
             sendLog(errLog);
         }
         else {
@@ -755,7 +762,8 @@ function disconnection(sessionId){
         }
     })
     .catch(e => {
-        sendLog(e);
+        err = setErrorLog('disconnect', e, sessionId);
+        sendLog(err);
         return e;
     });	
 }
@@ -791,7 +799,8 @@ function getClassroomsTot(sessionId){
         updateClassroomsList(sessionId, roomsESIEE);
         })
         .catch(e => {
-            sendLog(e);           
+            err = setErrorLog('getClassroomsTot', e, sessionId);
+            sendLog(err);         
             return e;
         });	
 }
@@ -825,7 +834,12 @@ function ADEconnect (){
             getProjectId(sessionId);
         })
         .catch(e => {
-            sendLog(e);
+            if (e == "TypeError: Failed to fetch"){
+                var errLog = setErrorLog('connect', 'ERROR "Failed to fetch request !"', null);
+                e = errLog;
+            }
+            err = setErrorLog('connect', e, sessionId);
+            sendLog(err);
             return e;
         });	
     })
@@ -1000,7 +1014,7 @@ horaire_fin.value = nextHour +':'+ nextMinutes;
 var lastDL = localStorage.getItem('DayLoaded');
 if (lastDL != getCurrentDateForEvent(new Date())) {
     // Désactiver les options de navigation du bandeau tant que la recherche n'est pas achevée :
-    // TODO
+    $('ul.menu_elements').hide();
 
     // Désactiver le bouton de recherche jusqu'au chargement des données : 
     $('button.bouton_recherche').prop('disabled', true);
